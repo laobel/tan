@@ -1,0 +1,51 @@
+@import url(../lib/Cesium/Widgets/widgets.css);
+@import url(./ToolTips.css);
+
+html, body, #container {
+    width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden;
+}
+
+
+body{
+    background: #000;
+}
+
+.btn{
+    position: absolute;
+    right: 50px;
+    cursor: pointer;
+}
+
+.result-panel{
+    position: absolute;
+    top: 100px;
+    left: 10px;
+    width: 300px;
+    padding: 10px;
+    color: white;
+    background-color: rgba(0,0,0,.6);
+    display: none;
+}
+
+.result-panel .odd{
+    background-color: rgba(77,139,172,0.6);
+}
+
+.result-panel .even{
+    background-color: rgba(77,139,172,0.3);
+}
+
+.result-panel div{
+    height: 30px;
+    line-height: 30px;
+}
+
+.result-panel span{
+    width: 50%;
+    display: flex;
+    float: left;
+}
+
+.cesium-viewer-bottom{
+    display: none;
+}

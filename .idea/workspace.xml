@@ -1,0 +1,1060 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="5a446a25-d0ce-4909-85b7-e09d5fe8c8d2" name="Default Changelist" comment="" />
+    <ignored path="$PROJECT_DIR$/.tmp/" />
+    <ignored path="$PROJECT_DIR$/temp/" />
+    <ignored path="$PROJECT_DIR$/tmp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <splitter split-orientation="horizontal" split-proportion="0.8363636">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/HouseholdManager/index.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="228">
+                  <caret line="137" column="23" selection-start-line="131" selection-start-column="8" selection-end-line="137" selection-end-column="23" />
+                  <folding>
+                    <element signature="n#head#0;n#html#0;n#!!top" />
+                    <element signature="n#style#0;n#head#0;n#html#0;n#!!top" />
+                    <element signature="e#570#709#0" />
+                    <element signature="e#726#951#0" />
+                    <element signature="e#975#1015#0" />
+                    <element signature="e#1038#1080#0" />
+                    <element signature="e#1112#1180#0" />
+                    <element signature="e#1219#1261#0" />
+                    <element signature="e#1291#1379#0" />
+                    <element signature="e#1412#1510#0" />
+                    <element signature="e#1549#1599#0" />
+                    <element signature="e#1635#1672#0" />
+                    <element signature="e#1710#1844#0" />
+                    <element signature="e#1888#1999#0" />
+                    <element signature="e#2041#2088#0" />
+                    <element signature="e#2120#2162#0" />
+                    <element signature="e#2194#2241#0" />
+                    <element signature="e#2276#2388#0" />
+                    <element signature="n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="e#2723#2769#0" />
+                    <element signature="e#2806#2990#0" />
+                    <element signature="e#2884#2938#0" />
+                    <element signature="e#2943#2984#0" />
+                    <element signature="e#3467#3693#0" />
+                    <element signature="e#3593#3687#0" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/HouseholdManager/js/CesiumExtension.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="627">
+                  <caret line="62" column="52" selection-start-line="62" selection-start-column="7" selection-end-line="62" selection-end-column="52" />
+                  <folding>
+                    <element signature="n#!!doc;n#cartesian3ArrayClone#0" />
+                    <element signature="n#!!block;n#cartesian3ArrayClone#0" />
+                    <element signature="e#147#173#0" />
+                    <element signature="e#260#278#0" />
+                    <element signature="e#300#692#0" />
+                    <element signature="e#322#675#0" />
+                    <element signature="e#471#640#0" />
+                    <element signature="e#698#716#0" />
+                    <element signature="e#910#1029#0" />
+                    <element signature="e#1772#1793#0" />
+                    <element signature="e#1832#1893#0" />
+                    <element signature="e#1900#1923#0" />
+                    <element signature="e#1964#2039#0" />
+                    <element signature="e#2063#2080#0" />
+                    <element signature="e#2107#3305#0" />
+                    <element signature="e#2135#2629#0" />
+                    <element signature="e#2635#2718#0" />
+                    <element signature="e#2770#3112#0" />
+                    <element signature="e#2794#3030#0" />
+                    <element signature="e#3050#3106#0" />
+                    <element signature="e#3148#3200#0" />
+                    <element signature="e#3236#3287#0" />
+                    <element signature="e#3312#3328#0" />
+                    <element signature="e#3403#4470#0" />
+                    <element signature="e#3514#3545#0" />
+                    <element signature="e#3573#3764#0" />
+                    <element signature="e#3671#3754#0" />
+                    <element signature="e#3789#4336#0" />
+                    <element signature="e#3836#3896#0" />
+                    <element signature="e#3947#4011#0" />
+                    <element signature="e#4123#4185#0" />
+                    <element signature="e#4247#4326#0" />
+                    <element signature="e#4341#4464#0" />
+                    <element signature="e#4396#4454#0" />
+                    <element signature="e#4516#5334#0" />
+                    <element signature="e#4627#4658#0" />
+                    <element signature="e#4686#5198#0" />
+                    <element signature="e#4729#5004#0" />
+                    <element signature="e#4864#4990#0" />
+                    <element signature="e#5009#5105#0" />
+                    <element signature="e#5203#5328#0" />
+                    <element signature="e#5259#5318#0" />
+                    <element signature="e#6564#6929#0" />
+                    <element signature="e#6694#6754#0" />
+                    <element signature="e#6861#6919#0" />
+                    <element signature="e#6934#7057#0" />
+                    <element signature="e#6989#7047#0" />
+                    <element signature="e#7131#7690#0" />
+                    <element signature="e#7802#7870#0" />
+                    <element signature="e#8101#9165#0" />
+                    <element signature="e#8795#8843#0" />
+                    <element signature="e#8931#8980#0" />
+                    <element signature="e#9069#9117#0" />
+                    <element signature="e#9218#9432#0" />
+                    <element signature="e#9273#9400#0" />
+                    <element signature="e#9328#9390#0" />
+                    <element signature="e#9487#9722#0" />
+                    <element signature="e#9616#9657#0" />
+                    <element signature="e#10161#10295#0" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/../BuildingsManagerProject/Source/public/map/css/floorInfoBox.css">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="4237">
+                  <caret line="223" column="40" selection-start-line="223" selection-start-column="22" selection-end-line="223" selection-end-column="40" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/HouseholdManager/css/ToolTips.css">
+              <provider selected="true" editor-type-id="text-editor" />
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/HouseholdManager/js/utils.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="798">
+                  <caret line="300" column="59" selection-start-line="300" selection-start-column="36" selection-end-line="300" selection-end-column="59" />
+                  <folding>
+                    <element signature="n#!!doc;n#getCenterOfGravityPoint#0" />
+                    <element signature="n#!!block;n#getCenterOfGravityPoint#0" />
+                    <element signature="e#269#593#0" />
+                    <element signature="n#!!doc;n#getBuildingData#0" />
+                    <element signature="n#!!block;n#getBuildingData#0" />
+                    <element signature="e#833#909#0" />
+                    <element signature="e#863#903#0" />
+                    <element signature="n#!!doc;n#getFloorData#0" />
+                    <element signature="n#!!block;n#getFloorData#0" />
+                    <element signature="e#1180#1349#0" />
+                    <element signature="e#1231#1343#0" />
+                    <element signature="e#1275#1333#0" />
+                    <element signature="e#1385#1581#0" />
+                    <element signature="e#1463#1575#0" />
+                    <element signature="e#1507#1565#0" />
+                    <element signature="n#!!doc;n#getHouseData#0" />
+                    <element signature="n#!!block;n#getHouseData#0" />
+                    <element signature="e#1859#2019#0" />
+                    <element signature="e#1907#2013#0" />
+                    <element signature="e#1948#2003#0" />
+                    <element signature="e#2104#2383#0" />
+                    <element signature="e#2155#2377#0" />
+                    <element signature="e#2245#2367#0" />
+                    <element signature="e#2290#2353#0" />
+                    <element signature="e#2419#2725#0" />
+                    <element signature="e#2497#2719#0" />
+                    <element signature="e#2587#2709#0" />
+                    <element signature="e#2632#2695#0" />
+                    <element signature="n#!!doc;n#getDataById#0" />
+                    <element signature="n#!!block;n#getDataById#0" />
+                    <element signature="e#2930#3417#0" />
+                    <element signature="e#2995#3036#0" />
+                    <element signature="e#3086#3411#0" />
+                    <element signature="e#3159#3204#0" />
+                    <element signature="e#3255#3401#0" />
+                    <element signature="e#3333#3387#0" />
+                    <element signature="n#!!doc;n#createBuilding#0" />
+                    <element signature="n#!!block;n#createBuilding#0" />
+                    <element signature="e#3654#4060#0" />
+                    <element signature="e#3702#3868#0" />
+                    <element signature="e#3922#4054#0" />
+                    <element signature="e#4116#4258#0" />
+                    <element signature="n#!!doc;n#createBuildings#0" />
+                    <element signature="n#!!block;n#createBuildings#0" />
+                    <element signature="e#4575#5158#0" />
+                    <element signature="e#4669#5115#0" />
+                    <element signature="e#4721#4903#0" />
+                    <element signature="e#4965#5105#0" />
+                    <element signature="e#5213#5356#0" />
+                    <element signature="n#!!doc;n#createFloor#0" />
+                    <element signature="n#!!block;n#createFloor#0" />
+                    <element signature="e#5603#6127#0" />
+                    <element signature="e#5651#5941#0" />
+                    <element signature="e#5992#6121#0" />
+                    <element signature="e#6188#6331#0" />
+                    <element signature="n#!!doc;n#createFloors#0" />
+                    <element signature="n#!!block;n#createFloors#0" />
+                    <element signature="e#6630#7334#0" />
+                    <element signature="e#6718#7290#0" />
+                    <element signature="e#6770#7084#0" />
+                    <element signature="e#7143#7280#0" />
+                    <element signature="e#7394#7578#0" />
+                    <element signature="n#!!doc;n#createHouse#0" />
+                    <element signature="e#8018#8041#0" />
+                    <element signature="e#8171#8507#0" />
+                    <element signature="e#8554#9073#0" />
+                    <element signature="e#8602#8887#0" />
+                    <element signature="e#8938#9067#0" />
+                    <element signature="e#9082#9307#0" />
+                    <element signature="e#9354#9670#0" />
+                    <element signature="e#9481#9663#0" />
+                    <element signature="e#9565#9653#0" />
+                    <element signature="n#!!doc;n#createHouses#0" />
+                    <element signature="n#!!block;n#createHouses#0" />
+                    <element signature="e#9947#10036#0" />
+                    <element signature="n#!!doc;n#createHouses_b#0" />
+                    <element signature="n#!!block;n#createHouses_b#0" />
+                    <element signature="e#10270#11341#0" />
+                    <element signature="e#10407#11059#0" />
+                    <element signature="e#10459#10853#0" />
+                    <element signature="e#10912#11049#0" />
+                    <element signature="e#11387#11702#0" />
+                    <element signature="e#11513#11695#0" />
+                    <element signature="e#11597#11685#0" />
+                    <element signature="n#!!doc;n#createHouseLabels#0" />
+                    <element signature="n#!!block;n#createHouseLabels#0" />
+                    <element signature="e#11941#12782#0" />
+                    <element signature="e#12570#12774#0" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/HouseholdManager/datacollection.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="6764">
+                  <caret line="1100" column="6" selection-start-line="1100" selection-start-column="6" selection-end-line="1100" selection-end-column="6" />
+                  <folding>
+                    <element signature="n#head#0;n#html#0;n#!!top" />
+                    <element signature="n#style#0;n#head#0;n#html#0;n#!!top" />
+                    <element signature="e#572#711#0" />
+                    <element signature="e#728#953#0" />
+                    <element signature="e#977#1017#0" />
+                    <element signature="e#1040#1082#0" />
+                    <element signature="e#1114#1182#0" />
+                    <element signature="e#1221#1263#0" />
+                    <element signature="e#1293#1381#0" />
+                    <element signature="e#1414#1512#0" />
+                    <element signature="e#1551#1601#0" />
+                    <element signature="e#1637#1674#0" />
+                    <element signature="e#1712#1846#0" />
+                    <element signature="e#1890#2001#0" />
+                    <element signature="e#2043#2090#0" />
+                    <element signature="e#2122#2164#0" />
+                    <element signature="e#2196#2243#0" />
+                    <element signature="e#2278#2390#0" />
+                    <element signature="n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#label#1;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#label#1;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#select#0;n#label#1;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#label#2;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#select#0;n#label#2;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#label#3;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#select#0;n#label#3;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#div#1;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#div#2;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#ul#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#li#0;n#ul#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#span#0;n#li#0;n#ul#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#span#1;n#li#0;n#ul#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#div#1;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#div#0;n#div#1;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#div#1;n#div#1;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#label#0;n#div#1;n#div#1;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#select#0;n#label#0;n#div#1;n#div#1;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#div#2;n#div#1;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#label#0;n#div#2;n#div#1;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#select#0;n#label#0;n#div#2;n#div#1;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#label#1;n#div#2;n#div#1;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#select#0;n#label#1;n#div#2;n#div#1;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="e#10677#10915#0" />
+                    <element signature="e#11050#11276#0" />
+                    <element signature="e#11176#11270#0" />
+                    <element signature="e#11885#11934#0" />
+                    <element signature="e#11989#12049#0" />
+                    <element signature="e#12101#12158#0" />
+                    <element signature="e#12210#12267#0" />
+                    <element signature="e#12347#12479#0" />
+                    <element signature="e#12400#12473#0" />
+                    <element signature="e#12525#12809#0" />
+                    <element signature="e#12648#12713#0" />
+                    <element signature="e#12734#12773#0" />
+                    <element signature="e#12869#12952#0" />
+                    <element signature="e#13054#13189#0" />
+                    <element signature="e#13250#13333#0" />
+                    <element signature="e#13437#13574#0" />
+                    <element signature="e#13628#13711#0" />
+                    <element signature="e#13807#13936#0" />
+                    <element signature="e#13991#14074#0" />
+                    <element signature="e#14172#14303#0" />
+                    <element signature="e#14357#14440#0" />
+                    <element signature="e#14536#14665#0" />
+                    <element signature="e#14720#14803#0" />
+                    <element signature="e#14901#15032#0" />
+                    <element signature="e#15130#15817#0" />
+                    <element signature="e#15140#15811#0" />
+                    <element signature="e#15172#15375#0" />
+                    <element signature="e#15388#15588#0" />
+                    <element signature="e#15601#15801#0" />
+                    <element signature="e#16026#16261#0" />
+                    <element signature="e#16847#16920#0" />
+                    <element signature="e#16962#17699#0" />
+                    <element signature="e#17272#17363#0" />
+                    <element signature="e#17418#17511#0" />
+                    <element signature="e#19167#19250#0" />
+                    <element signature="e#19309#19414#0" />
+                    <element signature="e#19420#19506#0" />
+                    <element signature="e#19960#20048#0" />
+                    <element signature="e#20103#20193#0" />
+                    <element signature="e#20579#20726#0" />
+                    <element signature="e#20766#21031#0" />
+                    <element signature="e#20830#21004#0" />
+                    <element signature="e#21064#24227#0" />
+                    <element signature="e#21122#21454#0" />
+                    <element signature="e#21270#21419#0" />
+                    <element signature="e#21486#21853#0" />
+                    <element signature="e#21634#21818#0" />
+                    <element signature="e#21887#22214#0" />
+                    <element signature="e#22035#22179#0" />
+                    <element signature="e#22330#22647#0" />
+                    <element signature="e#22690#22796#0" />
+                    <element signature="e#22837#22943#0" />
+                    <element signature="e#22982#23048#0" />
+                    <element signature="e#23188#23453#0" />
+                    <element signature="e#23372#23411#0" />
+                    <element signature="e#23584#23837#0" />
+                    <element signature="e#23756#23795#0" />
+                    <element signature="e#23968#24221#0" />
+                    <element signature="e#24140#24179#0" />
+                    <element signature="e#24278#25666#0" />
+                    <element signature="e#24394#24957#0" />
+                    <element signature="e#24739#24824#0" />
+                    <element signature="e#25010#25083#0" />
+                    <element signature="e#25114#25659#0" />
+                    <element signature="e#25460#25577#0" />
+                    <element signature="e#26014#26234#0" />
+                    <element signature="e#26076#26228#0" />
+                    <element signature="e#26275#26460#0" />
+                    <element signature="e#26726#27052#0" />
+                    <element signature="e#26860#26891#0" />
+                    <element signature="e#27154#27481#0" />
+                    <element signature="e#27288#27319#0" />
+                    <element signature="e#27518#28061#0" />
+                    <element signature="e#27895#28055#0" />
+                    <element signature="e#28358#28681#0" />
+                    <element signature="e#28492#28523#0" />
+                    <element signature="e#28780#29104#0" />
+                    <element signature="e#28914#28945#0" />
+                    <element signature="e#29208#29579#0" />
+                    <element signature="e#29410#29441#0" />
+                    <element signature="e#29679#29989#0" />
+                    <element signature="e#29881#29912#0" />
+                    <element signature="e#30026#30895#0" />
+                    <element signature="e#30450#30610#0" />
+                    <element signature="e#30741#30889#0" />
+                    <element signature="e#31220#31543#0" />
+                    <element signature="e#31354#31385#0" />
+                    <element signature="e#31642#31966#0" />
+                    <element signature="e#31776#31807#0" />
+                    <element signature="e#32070#32809#0" />
+                    <element signature="e#32274#32305#0" />
+                    <element signature="e#32909#33583#0" />
+                    <element signature="e#33111#33142#0" />
+                    <element signature="e#33683#34947#0" />
+                    <element signature="e#33919#33950#0" />
+                    <element signature="e#34303#34678#0" />
+                    <element signature="e#35002#35279#0" />
+                    <element signature="e#35325#35722#0" />
+                    <element signature="e#35768#36251#0" />
+                    <element signature="e#36327#38174#0" />
+                    <element signature="e#36471#36918#0" />
+                    <element signature="e#36966#37043#0" />
+                    <element signature="e#37049#37569#0" />
+                    <element signature="e#37138#37227#0" />
+                    <element signature="e#37786#37879#0" />
+                    <element signature="e#38187#40260#0" />
+                    <element signature="e#38264#38322#0" />
+                    <element signature="e#38565#39180#0" />
+                    <element signature="e#39225#39296#0" />
+                    <element signature="e#39302#39722#0" />
+                    <element signature="e#39398#39481#0" />
+                    <element signature="e#39923#40007#0" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/HouseholdManager/index.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="209">
+                  <caret line="120" column="36" selection-start-line="120" selection-start-column="36" selection-end-line="120" selection-end-column="36" />
+                  <folding>
+                    <element signature="n#head#0;n#html#0;n#!!top" />
+                    <element signature="n#style#0;n#head#0;n#html#0;n#!!top" />
+                    <element signature="e#570#709#0" />
+                    <element signature="e#726#951#0" />
+                    <element signature="e#975#1015#0" />
+                    <element signature="e#1038#1080#0" />
+                    <element signature="e#1112#1180#0" />
+                    <element signature="e#1219#1261#0" />
+                    <element signature="e#1291#1379#0" />
+                    <element signature="e#1412#1510#0" />
+                    <element signature="e#1549#1599#0" />
+                    <element signature="e#1635#1672#0" />
+                    <element signature="e#1710#1844#0" />
+                    <element signature="e#1888#1999#0" />
+                    <element signature="e#2041#2088#0" />
+                    <element signature="e#2120#2162#0" />
+                    <element signature="e#2194#2241#0" />
+                    <element signature="e#2276#2388#0" />
+                    <element signature="n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
+                    <element signature="e#2723#2769#0" />
+                    <element signature="e#2806#2990#0" />
+                    <element signature="e#2884#2938#0" />
+                    <element signature="e#2943#2984#0" />
+                    <element signature="e#3467#3693#0" />
+                    <element signature="e#3593#3687#0" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/HouseholdManager/js/colorConverter.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="1615">
+                  <caret line="85" column="28" selection-start-line="85" selection-start-column="28" selection-end-line="85" selection-end-column="28" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>drawFinishedCallback</find>
+      <find>_currentCustomPolygon</find>
+      <find>_oLeftClickEvent</find>
+      <find>双击</find>
+      <find>currentDrawPolygon</find>
+      <find>attributePanel</find>
+      <find>modelData</find>
+      <find>setCoordinates</find>
+      <find>offse</find>
+      <find>getCenterOfGravityPoint</find>
+      <find>referenceFr</find>
+      <find>multiplyByTranslation</find>
+      <find>chosenouseId</find>
+      <find>offset</find>
+      <find>editCoordinate</find>
+      <find>selectFloorId</find>
+      <find>cancel</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>value</replace>
+    </replaceStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/HouseholdManager/utils.js" />
+        <option value="$PROJECT_DIR$/HouseholdManager/CesiumExtension.js" />
+        <option value="$PROJECT_DIR$/HouseholdManager/js/colorConverter.js" />
+        <option value="$PROJECT_DIR$/HouseholdManager/js/CesiumExtension.js" />
+        <option value="$PROJECT_DIR$/HouseholdManager/js/utils.js" />
+        <option value="$PROJECT_DIR$/HouseholdManager/datacollection.html" />
+        <option value="$PROJECT_DIR$/HouseholdManager/index.html" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-10" />
+    <option name="width" value="775" />
+    <option name="height" value="1040" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="谭" type="b2602c69:ProjectViewProjectNode" />
+              <item name="谭" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="谭" type="b2602c69:ProjectViewProjectNode" />
+              <item name="谭" type="462c0819:PsiDirectoryNode" />
+              <item name="HouseholdManager" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="谭" type="b2602c69:ProjectViewProjectNode" />
+              <item name="谭" type="462c0819:PsiDirectoryNode" />
+              <item name="HouseholdManager" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="谭" type="b2602c69:ProjectViewProjectNode" />
+              <item name="谭" type="462c0819:PsiDirectoryNode" />
+              <item name="HouseholdManager" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="谭" type="b2602c69:ProjectViewProjectNode" />
+              <item name="谭" type="462c0819:PsiDirectoryNode" />
+              <item name="HouseholdManager" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="谭" type="b2602c69:ProjectViewProjectNode" />
+              <item name="谭" type="462c0819:PsiDirectoryNode" />
+              <item name="HouseholdManager" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="jscolor-2.0.5" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="D:/apache-tomcat-9.0.14/webapps/openapi/demo" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\develop\Webstrom\谭\HouseholdManager\js" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\develop\Webstrom\谭\HouseholdManager" />
+      <recent name="D:\develop\Webstrom\谭\HouseholdManager\js" />
+      <recent name="D:\develop\Webstrom\谭\HouseholdManager\css" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\WLBDEVELOP\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5a446a25-d0ce-4909-85b7-e09d5fe8c8d2" name="Default Changelist" comment="" />
+      <created>1557797240239</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1557797240239</updated>
+      <workItem from="1557797241453" duration="22774000" />
+      <workItem from="1557879002820" duration="26414000" />
+      <workItem from="1557966185783" duration="28810000" />
+      <workItem from="1558052965019" duration="24806000" />
+      <workItem from="1558311626109" duration="22899000" />
+      <workItem from="1558398577230" duration="4106000" />
+      <workItem from="1558420389725" duration="599000" />
+      <workItem from="1558506961943" duration="597000" />
+      <workItem from="1558570286655" duration="1810000" />
+      <workItem from="1558658358578" duration="1262000" />
+      <workItem from="1558916721594" duration="598000" />
+      <workItem from="1559003255901" duration="599000" />
+      <workItem from="1559089051484" duration="599000" />
+      <workItem from="1559175540996" duration="599000" />
+      <workItem from="1559261826897" duration="1219000" />
+      <workItem from="1559520931607" duration="1196000" />
+      <workItem from="1559540012534" duration="241000" />
+      <workItem from="1559693580172" duration="599000" />
+      <workItem from="1559780878086" duration="2149000" />
+      <workItem from="1560126166280" duration="599000" />
+      <workItem from="1560212566886" duration="599000" />
+      <workItem from="1560299429806" duration="609000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="143683000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.04293263" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/DrawOn3DTiles/css/ToolTips.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DrawOn3DTiles/DrawPage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2432">
+          <caret line="128" column="6" selection-start-line="122" selection-start-column="4" selection-end-line="128" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HouseholdManager/lib/jscolor-2.0.5/jscolor.min.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HouseholdManager/js/CesiumExtension.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="627">
+          <caret line="62" column="52" selection-start-line="62" selection-start-column="7" selection-end-line="62" selection-end-column="52" />
+          <folding>
+            <element signature="n#!!doc;n#cartesian3ArrayClone#0" />
+            <element signature="n#!!block;n#cartesian3ArrayClone#0" />
+            <element signature="e#147#173#0" />
+            <element signature="e#260#278#0" />
+            <element signature="e#300#692#0" />
+            <element signature="e#322#675#0" />
+            <element signature="e#471#640#0" />
+            <element signature="e#698#716#0" />
+            <element signature="e#910#1029#0" />
+            <element signature="e#1772#1793#0" />
+            <element signature="e#1832#1893#0" />
+            <element signature="e#1900#1923#0" />
+            <element signature="e#1964#2039#0" />
+            <element signature="e#2063#2080#0" />
+            <element signature="e#2107#3305#0" />
+            <element signature="e#2135#2629#0" />
+            <element signature="e#2635#2718#0" />
+            <element signature="e#2770#3112#0" />
+            <element signature="e#2794#3030#0" />
+            <element signature="e#3050#3106#0" />
+            <element signature="e#3148#3200#0" />
+            <element signature="e#3236#3287#0" />
+            <element signature="e#3312#3328#0" />
+            <element signature="e#3403#4470#0" />
+            <element signature="e#3514#3545#0" />
+            <element signature="e#3573#3764#0" />
+            <element signature="e#3671#3754#0" />
+            <element signature="e#3789#4336#0" />
+            <element signature="e#3836#3896#0" />
+            <element signature="e#3947#4011#0" />
+            <element signature="e#4123#4185#0" />
+            <element signature="e#4247#4326#0" />
+            <element signature="e#4341#4464#0" />
+            <element signature="e#4396#4454#0" />
+            <element signature="e#4516#5334#0" />
+            <element signature="e#4627#4658#0" />
+            <element signature="e#4686#5198#0" />
+            <element signature="e#4729#5004#0" />
+            <element signature="e#4864#4990#0" />
+            <element signature="e#5009#5105#0" />
+            <element signature="e#5203#5328#0" />
+            <element signature="e#5259#5318#0" />
+            <element signature="e#6564#6929#0" />
+            <element signature="e#6694#6754#0" />
+            <element signature="e#6861#6919#0" />
+            <element signature="e#6934#7057#0" />
+            <element signature="e#6989#7047#0" />
+            <element signature="e#7131#7690#0" />
+            <element signature="e#7802#7870#0" />
+            <element signature="e#8101#9165#0" />
+            <element signature="e#8795#8843#0" />
+            <element signature="e#8931#8980#0" />
+            <element signature="e#9069#9117#0" />
+            <element signature="e#9218#9432#0" />
+            <element signature="e#9273#9400#0" />
+            <element signature="e#9328#9390#0" />
+            <element signature="e#9487#9722#0" />
+            <element signature="e#9616#9657#0" />
+            <element signature="e#10161#10295#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../BuildingsManagerProject/Source/public/map/css/floorInfoBox.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4237">
+          <caret line="223" column="40" selection-start-line="223" selection-start-column="22" selection-end-line="223" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HouseholdManager/css/ToolTips.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HouseholdManager/js/utils.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="798">
+          <caret line="300" column="59" selection-start-line="300" selection-start-column="36" selection-end-line="300" selection-end-column="59" />
+          <folding>
+            <element signature="n#!!doc;n#getCenterOfGravityPoint#0" />
+            <element signature="n#!!block;n#getCenterOfGravityPoint#0" />
+            <element signature="e#269#593#0" />
+            <element signature="n#!!doc;n#getBuildingData#0" />
+            <element signature="n#!!block;n#getBuildingData#0" />
+            <element signature="e#833#909#0" />
+            <element signature="e#863#903#0" />
+            <element signature="n#!!doc;n#getFloorData#0" />
+            <element signature="n#!!block;n#getFloorData#0" />
+            <element signature="e#1180#1349#0" />
+            <element signature="e#1231#1343#0" />
+            <element signature="e#1275#1333#0" />
+            <element signature="e#1385#1581#0" />
+            <element signature="e#1463#1575#0" />
+            <element signature="e#1507#1565#0" />
+            <element signature="n#!!doc;n#getHouseData#0" />
+            <element signature="n#!!block;n#getHouseData#0" />
+            <element signature="e#1859#2019#0" />
+            <element signature="e#1907#2013#0" />
+            <element signature="e#1948#2003#0" />
+            <element signature="e#2104#2383#0" />
+            <element signature="e#2155#2377#0" />
+            <element signature="e#2245#2367#0" />
+            <element signature="e#2290#2353#0" />
+            <element signature="e#2419#2725#0" />
+            <element signature="e#2497#2719#0" />
+            <element signature="e#2587#2709#0" />
+            <element signature="e#2632#2695#0" />
+            <element signature="n#!!doc;n#getDataById#0" />
+            <element signature="n#!!block;n#getDataById#0" />
+            <element signature="e#2930#3417#0" />
+            <element signature="e#2995#3036#0" />
+            <element signature="e#3086#3411#0" />
+            <element signature="e#3159#3204#0" />
+            <element signature="e#3255#3401#0" />
+            <element signature="e#3333#3387#0" />
+            <element signature="n#!!doc;n#createBuilding#0" />
+            <element signature="n#!!block;n#createBuilding#0" />
+            <element signature="e#3654#4060#0" />
+            <element signature="e#3702#3868#0" />
+            <element signature="e#3922#4054#0" />
+            <element signature="e#4116#4258#0" />
+            <element signature="n#!!doc;n#createBuildings#0" />
+            <element signature="n#!!block;n#createBuildings#0" />
+            <element signature="e#4575#5158#0" />
+            <element signature="e#4669#5115#0" />
+            <element signature="e#4721#4903#0" />
+            <element signature="e#4965#5105#0" />
+            <element signature="e#5213#5356#0" />
+            <element signature="n#!!doc;n#createFloor#0" />
+            <element signature="n#!!block;n#createFloor#0" />
+            <element signature="e#5603#6127#0" />
+            <element signature="e#5651#5941#0" />
+            <element signature="e#5992#6121#0" />
+            <element signature="e#6188#6331#0" />
+            <element signature="n#!!doc;n#createFloors#0" />
+            <element signature="n#!!block;n#createFloors#0" />
+            <element signature="e#6630#7334#0" />
+            <element signature="e#6718#7290#0" />
+            <element signature="e#6770#7084#0" />
+            <element signature="e#7143#7280#0" />
+            <element signature="e#7394#7578#0" />
+            <element signature="n#!!doc;n#createHouse#0" />
+            <element signature="e#8018#8041#0" />
+            <element signature="e#8171#8507#0" />
+            <element signature="e#8554#9073#0" />
+            <element signature="e#8602#8887#0" />
+            <element signature="e#8938#9067#0" />
+            <element signature="e#9082#9307#0" />
+            <element signature="e#9354#9670#0" />
+            <element signature="e#9481#9663#0" />
+            <element signature="e#9565#9653#0" />
+            <element signature="n#!!doc;n#createHouses#0" />
+            <element signature="n#!!block;n#createHouses#0" />
+            <element signature="e#9947#10036#0" />
+            <element signature="n#!!doc;n#createHouses_b#0" />
+            <element signature="n#!!block;n#createHouses_b#0" />
+            <element signature="e#10270#11341#0" />
+            <element signature="e#10407#11059#0" />
+            <element signature="e#10459#10853#0" />
+            <element signature="e#10912#11049#0" />
+            <element signature="e#11387#11702#0" />
+            <element signature="e#11513#11695#0" />
+            <element signature="e#11597#11685#0" />
+            <element signature="n#!!doc;n#createHouseLabels#0" />
+            <element signature="n#!!block;n#createHouseLabels#0" />
+            <element signature="e#11941#12782#0" />
+            <element signature="e#12570#12774#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HouseholdManager/datacollection.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6764">
+          <caret line="1100" column="6" selection-start-line="1100" selection-start-column="6" selection-end-line="1100" selection-end-column="6" />
+          <folding>
+            <element signature="n#head#0;n#html#0;n#!!top" />
+            <element signature="n#style#0;n#head#0;n#html#0;n#!!top" />
+            <element signature="e#572#711#0" />
+            <element signature="e#728#953#0" />
+            <element signature="e#977#1017#0" />
+            <element signature="e#1040#1082#0" />
+            <element signature="e#1114#1182#0" />
+            <element signature="e#1221#1263#0" />
+            <element signature="e#1293#1381#0" />
+            <element signature="e#1414#1512#0" />
+            <element signature="e#1551#1601#0" />
+            <element signature="e#1637#1674#0" />
+            <element signature="e#1712#1846#0" />
+            <element signature="e#1890#2001#0" />
+            <element signature="e#2043#2090#0" />
+            <element signature="e#2122#2164#0" />
+            <element signature="e#2196#2243#0" />
+            <element signature="e#2278#2390#0" />
+            <element signature="n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#label#1;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#label#1;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#select#0;n#label#1;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#label#2;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#select#0;n#label#2;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#label#3;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#select#0;n#label#3;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#1;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#2;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#ul#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#li#0;n#ul#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#span#0;n#li#0;n#ul#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#span#1;n#li#0;n#ul#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#1;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#0;n#div#1;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#1;n#div#1;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#label#0;n#div#1;n#div#1;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#select#0;n#label#0;n#div#1;n#div#1;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#2;n#div#1;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#label#0;n#div#2;n#div#1;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#select#0;n#label#0;n#div#2;n#div#1;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#label#1;n#div#2;n#div#1;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#select#0;n#label#1;n#div#2;n#div#1;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="e#10677#10915#0" />
+            <element signature="e#11050#11276#0" />
+            <element signature="e#11176#11270#0" />
+            <element signature="e#11885#11934#0" />
+            <element signature="e#11989#12049#0" />
+            <element signature="e#12101#12158#0" />
+            <element signature="e#12210#12267#0" />
+            <element signature="e#12347#12479#0" />
+            <element signature="e#12400#12473#0" />
+            <element signature="e#12525#12809#0" />
+            <element signature="e#12648#12713#0" />
+            <element signature="e#12734#12773#0" />
+            <element signature="e#12869#12952#0" />
+            <element signature="e#13054#13189#0" />
+            <element signature="e#13250#13333#0" />
+            <element signature="e#13437#13574#0" />
+            <element signature="e#13628#13711#0" />
+            <element signature="e#13807#13936#0" />
+            <element signature="e#13991#14074#0" />
+            <element signature="e#14172#14303#0" />
+            <element signature="e#14357#14440#0" />
+            <element signature="e#14536#14665#0" />
+            <element signature="e#14720#14803#0" />
+            <element signature="e#14901#15032#0" />
+            <element signature="e#15130#15817#0" />
+            <element signature="e#15140#15811#0" />
+            <element signature="e#15172#15375#0" />
+            <element signature="e#15388#15588#0" />
+            <element signature="e#15601#15801#0" />
+            <element signature="e#16026#16261#0" />
+            <element signature="e#16847#16920#0" />
+            <element signature="e#16962#17699#0" />
+            <element signature="e#17272#17363#0" />
+            <element signature="e#17418#17511#0" />
+            <element signature="e#19167#19250#0" />
+            <element signature="e#19309#19414#0" />
+            <element signature="e#19420#19506#0" />
+            <element signature="e#19960#20048#0" />
+            <element signature="e#20103#20193#0" />
+            <element signature="e#20579#20726#0" />
+            <element signature="e#20766#21031#0" />
+            <element signature="e#20830#21004#0" />
+            <element signature="e#21064#24227#0" />
+            <element signature="e#21122#21454#0" />
+            <element signature="e#21270#21419#0" />
+            <element signature="e#21486#21853#0" />
+            <element signature="e#21634#21818#0" />
+            <element signature="e#21887#22214#0" />
+            <element signature="e#22035#22179#0" />
+            <element signature="e#22330#22647#0" />
+            <element signature="e#22690#22796#0" />
+            <element signature="e#22837#22943#0" />
+            <element signature="e#22982#23048#0" />
+            <element signature="e#23188#23453#0" />
+            <element signature="e#23372#23411#0" />
+            <element signature="e#23584#23837#0" />
+            <element signature="e#23756#23795#0" />
+            <element signature="e#23968#24221#0" />
+            <element signature="e#24140#24179#0" />
+            <element signature="e#24278#25666#0" />
+            <element signature="e#24394#24957#0" />
+            <element signature="e#24739#24824#0" />
+            <element signature="e#25010#25083#0" />
+            <element signature="e#25114#25659#0" />
+            <element signature="e#25460#25577#0" />
+            <element signature="e#26014#26234#0" />
+            <element signature="e#26076#26228#0" />
+            <element signature="e#26275#26460#0" />
+            <element signature="e#26726#27052#0" />
+            <element signature="e#26860#26891#0" />
+            <element signature="e#27154#27481#0" />
+            <element signature="e#27288#27319#0" />
+            <element signature="e#27518#28061#0" />
+            <element signature="e#27895#28055#0" />
+            <element signature="e#28358#28681#0" />
+            <element signature="e#28492#28523#0" />
+            <element signature="e#28780#29104#0" />
+            <element signature="e#28914#28945#0" />
+            <element signature="e#29208#29579#0" />
+            <element signature="e#29410#29441#0" />
+            <element signature="e#29679#29989#0" />
+            <element signature="e#29881#29912#0" />
+            <element signature="e#30026#30895#0" />
+            <element signature="e#30450#30610#0" />
+            <element signature="e#30741#30889#0" />
+            <element signature="e#31220#31543#0" />
+            <element signature="e#31354#31385#0" />
+            <element signature="e#31642#31966#0" />
+            <element signature="e#31776#31807#0" />
+            <element signature="e#32070#32809#0" />
+            <element signature="e#32274#32305#0" />
+            <element signature="e#32909#33583#0" />
+            <element signature="e#33111#33142#0" />
+            <element signature="e#33683#34947#0" />
+            <element signature="e#33919#33950#0" />
+            <element signature="e#34303#34678#0" />
+            <element signature="e#35002#35279#0" />
+            <element signature="e#35325#35722#0" />
+            <element signature="e#35768#36251#0" />
+            <element signature="e#36327#38174#0" />
+            <element signature="e#36471#36918#0" />
+            <element signature="e#36966#37043#0" />
+            <element signature="e#37049#37569#0" />
+            <element signature="e#37138#37227#0" />
+            <element signature="e#37786#37879#0" />
+            <element signature="e#38187#40260#0" />
+            <element signature="e#38264#38322#0" />
+            <element signature="e#38565#39180#0" />
+            <element signature="e#39225#39296#0" />
+            <element signature="e#39302#39722#0" />
+            <element signature="e#39398#39481#0" />
+            <element signature="e#39923#40007#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HouseholdManager/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="120" column="36" selection-start-line="120" selection-start-column="36" selection-end-line="120" selection-end-column="36" />
+          <folding>
+            <element signature="n#head#0;n#html#0;n#!!top" />
+            <element signature="n#style#0;n#head#0;n#html#0;n#!!top" />
+            <element signature="e#570#709#0" />
+            <element signature="e#726#951#0" />
+            <element signature="e#975#1015#0" />
+            <element signature="e#1038#1080#0" />
+            <element signature="e#1112#1180#0" />
+            <element signature="e#1219#1261#0" />
+            <element signature="e#1291#1379#0" />
+            <element signature="e#1412#1510#0" />
+            <element signature="e#1549#1599#0" />
+            <element signature="e#1635#1672#0" />
+            <element signature="e#1710#1844#0" />
+            <element signature="e#1888#1999#0" />
+            <element signature="e#2041#2088#0" />
+            <element signature="e#2120#2162#0" />
+            <element signature="e#2194#2241#0" />
+            <element signature="e#2276#2388#0" />
+            <element signature="n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" />
+            <element signature="e#2723#2769#0" />
+            <element signature="e#2806#2990#0" />
+            <element signature="e#2884#2938#0" />
+            <element signature="e#2943#2984#0" />
+            <element signature="e#3467#3693#0" />
+            <element signature="e#3593#3687#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HouseholdManager/js/colorConverter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1615">
+          <caret line="85" column="28" selection-start-line="85" selection-start-column="28" selection-end-line="85" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

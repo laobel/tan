@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>分层分户数据采集</title>
+    <script src="./lib/jscolor-2.0.5/jscolor.min.js"></script>
+    <script src="https://cesiumjs.org/Cesium/Build/CesiumUnminified/Cesium.js"></script>
+    <script src="./js/CesiumExtension.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/colorConverter.js"></script>
+    <style>
+        @import url(https://cesiumjs.org/Cesium/Build/CesiumUnminified/Widgets/widgets.css);
+        @import url(./css/ToolTips.css);
+
+        html, body, #cesiumContainer {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .panel {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 500px;
+            color: white;
+            background-color: rgba(50, 50, 50, 0.8);
+            z-index: 999999;
+        }
+
+        .panel button {
+            cursor: pointer;
+        }
+
+        .panel > div {
+            padding: 5px 10px;
+        }
+
+        .panel > div > button {
+            margin: 0 10px;
+            cursor: pointer;
+        }
+
+        #coordinatePanel:first-child {
+            line-height: 30px;
+        }
+
+        #coordinatePanel ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #coordinatePanel ul li {
+            list-style: none;
+            padding: 5px 0;
+            cursor: pointer;
+        }
+
+        #coordinatePanel ul li:hover {
+            background-color: #0088FF;
+        }
+
+        #coordinatePanel ul input {
+            width: 140px;
+        }
+
+        #coordinatePanel ul li span {
+            float: right;
+            margin-right: 10px;
+            padding: 5px;
+            background-color: #3F9E65;
+        }
+
+        #coordinatePanel > div > textarea {
+            vertical-align: middle;
+            width: calc(100% - 60px);
+            height: 60px;
+        }
+
+        #coordinatePanel > div > button {
+            vertical-align: middle;
+        }
+
+        #attributePanel > div {
+            line-height: 30px;
+        }
+
+        #attributePanel label {
+            vertical-align: middle;
+        }
+
+        #attributePanel textarea {
+            vertical-align: middle;
+            width: calc(100% - 100px);
+            height: 60px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="cesiumContainer"></div>
+<div class="panel" oncontextmenu=window.event.returnValue=false;>
+    <div>
+        <label>是否显示：</label>
+        <label><input id="display_heckbox_qx" name="倾斜" type="checkbox" value="0" checked="true"/>倾斜 </label>
+        <label><input id="display_heckbox_building" name="楼栋" type="checkbox" value="1" checked="true"/>楼栋 </label>
+        <label><input id="display_heckbox_floor" name="楼层" type="checkbox" value="2" checked="true"/>楼层 </label>
+        <label><input id="display_heckbox_house" name="室内" type="checkbox" value="3" checked="true"/>室内 </label>
+    </div>
+    <hr>
+    <div>
+        <label>采集类型：</label>
+        <label><input name="drawMode" type="radio" value="building" onchange="drawModeChange(this)" checked="true"/>楼栋
+        </label>
+        <label><input name="drawMode" type="radio" value="floor" onchange="drawModeChange(this)"/>楼层 </label>
+        <label><input name="drawMode" type="radio" value="house" onchange="drawModeChange(this)"/>室内 </label>
+    </div>
+    <hr>
+    <div>
+        <div id="coordinatePanel">
+            <div data-bind="visible:coordinates.length<=0">
+                <label>使用已有数据创建或修改：</label><br>
+                <label style="margin-left: 20px;">楼栋id:<select
+                        data-bind="options: buildingIdOptions,  optionsText: 'id', optionsValue: 'id', selectedOptions: chosenBuildingId,optionsCaption:'请选择', event:{change:chosenBuildingIdChange}"></select></label>
+                <label style="margin-left: 20px;">楼层id:<select
+                        data-bind="options: floorIdOptions,  optionsText: 'id', optionsValue: 'id', selectedOptions: chosenFloorId, optionsCaption:'请选择',event:{change:chosenFloorIdChange}"></select></label>
+                <label style="margin-left: 20px;">房屋id:<select
+                        data-bind="options: houseIdOptions,  optionsText: 'id', optionsValue: 'id', selectedOptions: chosenHouseId, optionsCaption:'请选择',event:{change:chosenHouseIdChange}"></select></label>
+            </div>
+            <div data-bind="visible:coordinates.length<=0">
+                <label>使用坐标串创建：</label><br>
+                <textarea id="coordinatesTextArea" placeholder="[x1,y1,z1,x2,y2,z2,...]"></textarea>
+                <button id="setCoordinates">应用</button>
+            </div>
+            <div data-bind="visible:coordinates.length<=0">
+                <button id="enableDraw">鼠标绘制创建</button>
+            </div>
+            <ul data-bind="foreach:coordinates,visible:coordinates.length>0">
+                <li data-bind="event:{mouseover: $parent.mouseover,mouseout:$parent.mouseout}">
+                    <label>x:<input data-bind="value: x, valueUpdate: 'input'"></label>
+                    <label>y:<input data-bind="value: y, valueUpdate: 'input'"></label>
+                    <span id="edit_coordinate"
+                          data-bind="event:{click:function(){$parent.edit($data,$index())}}">编辑</span>
+                    <span id="delete_coordinate"
+                          data-bind="event:{click:function(){$parent.delete($data,$index())}}">删除</span>
+                </li>
+            </ul>
+        </div>
+        <br>
+        <div id="attributePanel">
+            <div id="buildingAttribute" data-bind="visible:show">
+                <label>楼栋&#8195id:<input data-bind="value: buildingId, valueUpdate: 'input'"></label><br>
+                <label>楼栋名称:<input data-bind="value: buildingName, valueUpdate: 'input'"></label><br>
+                <label>楼栋颜色:<input id="buildingColor" data-bind="value: color, valueUpdate: 'input'"></label><br>
+                <label>高亮颜色:<input id="buildingHColor" data-bind="value: hColor, valueUpdate: 'input'"></label><br>
+                <label>楼栋描述:<textarea data-bind="value: buildingDescription, valueUpdate: 'input'"></textarea></label>
+            </div>
+            <div id="floorAttribute" data-bind="visible:show">
+                <label>楼栋&#8195id:<select
+                        data-bind="options: buildingIdOptions,  optionsText: 'id', optionsValue: 'id', selectedOptions: chosenBuildingId,optionsCaption:'请选择' ,event:{change:chosenBuildingIdChange}"></select></label><br>
+                <label>楼层&#8195id:<input data-bind="value: floorId"></label><br>
+                <label>楼层名称:<input data-bind="value: floorName, valueUpdate: 'input'"></label><br>
+                <label>底部高程:<input data-bind="value: altitude, valueUpdate: 'input'"></label><br>
+                <label>楼层层高:<input data-bind="value: height, valueUpdate: 'input'"></label><br>
+                <label>楼层颜色:<input id="floorColor" data-bind="value: color, valueUpdate: 'input'"></label><br>
+                <label>高亮颜色:<input id="floorHColor" data-bind="value: hColor, valueUpdate: 'input'"></label><br>
+                <label>楼层描述:<textarea data-bind="value: floorDescription, valueUpdate: 'input'"></textarea></label>
+            </div>
+            <div id="houseAttribute" data-bind="visible:show">
+                <label>楼栋&#8195id:<select
+                        data-bind="options: buildingIdOptions,  optionsText: 'id', optionsValue: 'id', selectedOptions: chosenBuildingId, optionsCaption:'请选择',event:{change:chosenBuildingIdChange}"></select></label><br>
+                <label>楼层&#8195id:<select
+                        data-bind="options: floorIdOptions,  optionsText: 'id', optionsValue: 'id', selectedOptions: chosenFloorId, optionsCaption:'请选择',event:{change:chosenFloorIdChange}"></select></label><br>
+                <label>室内&#8195id:<input data-bind="value: houseId, valueUpdate: 'input'"></label><br>
+                <label>室内名称:<input data-bind="value: houseName, valueUpdate: 'input'"></label><br>
+                <label>底部高程:<input data-bind="value: altitude, valueUpdate: 'input'"></label><br>
+                <label>室内高度:<input data-bind="value: height, valueUpdate: 'input'"></label><br>
+                <label>楼层颜色:<input id="houseColor" data-bind="value: color, valueUpdate: 'input'"></label><br>
+                <label>高亮颜色:<input id="houseHColor" data-bind="value: hColor, valueUpdate: 'input'"></label><br>
+                <label>偏移显示:<input data-bind="value: offset, valueUpdate: 'input'"></label><label style="margin-left: 20px;">是否显示反向轴:<input id="showDebugModelMatrix" type="checkbox" checked="true"></label><br>
+                <label>室内描述:<textarea data-bind="value: houseDescription, valueUpdate: 'input'"></textarea></label>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div>
+        <button id="save">保存</button>
+        <button id="delete">删除</button>
+        <button id="cancel">取消</button>
+    </div>
+</div>
+</body>
+<script>
+    var datas = [];
+
+    localStorage.setItem('datas', JSON.stringify(datas));
+
+    var display_heckbox_qx = document.getElementById('display_heckbox_qx');
+    var display_heckbox_building = document.getElementById('display_heckbox_building');
+    var display_heckbox_floor = document.getElementById('display_heckbox_floor');
+    var display_heckbox_house = document.getElementById('display_heckbox_house');
+
+    var enableDraw = document.getElementById('enableDraw');
+
+    var modelData = document.getElementById('modelData');
+
+    var coordinatePanel = document.getElementById('coordinatePanel');
+    var coordinatesTextArea = document.getElementById('coordinatesTextArea');
+    var setCoordinates = document.getElementById('setCoordinates');
+
+
+    var buildingAttribute = document.getElementById('buildingAttribute');
+    var floorAttribute = document.getElementById('floorAttribute');
+    var houseAttribute = document.getElementById('houseAttribute');
+
+    var buildingColor = document.getElementById('buildingColor');
+    var buildingHColor = document.getElementById('buildingHColor');
+    var floorColor = document.getElementById('floorColor');
+    var floorHColor = document.getElementById('floorHColor');
+    var houseColor = document.getElementById('houseColor');
+    var houseHColor = document.getElementById('houseHColor');
+
+    var showDebugModelMatrix= document.getElementById('showDebugModelMatrix');
+
+
+    var save = document.getElementById('save');
+    var deleteEle = document.getElementById('delete');
+    var cancel = document.getElementById('cancel');
+
+
+    var viewer = new Cesium.Viewer('cesiumContainer', {
+        terrainProvider: Cesium.createWorldTerrain(),
+        baseLayerPicker: false,
+        geocoder: false,
+        homeButton: false,
+        navigationHelpButton: false,
+        sceneModePicker: false,
+        timeline: false
+    });
+
+    var scene = viewer.scene;
+    var camera = scene.camera;
+    var ellipsoid = viewer.scene.globe.ellipsoid;
+
+    camera.setView({
+        destination: new Cesium.Cartesian3(1216394.1392207467, -4736348.59346919, 4081293.9160685353),
+        orientation: {
+            heading: 0.018509338875732695,
+            pitch: -0.09272999615872646
+        }
+    });
+
+    //添加倾斜模型
+    var tileset = new Cesium.Cesium3DTileset({url: Cesium.IonResource.fromAssetId(6074)});
+    scene.primitives.add(tileset);
+
+    //创建建筑物
+    var buildingPrimitives = new Cesium.PrimitiveCollection();
+    scene.primitives.add(buildingPrimitives);
+    var buildings = {};
+
+    //创建楼层
+    var floorPrimitives = new Cesium.PrimitiveCollection();
+    scene.primitives.add(floorPrimitives);
+    var floors = {};
+
+    //创建房屋
+    var housePrimitives = new Cesium.PrimitiveCollection();
+    scene.primitives.add(housePrimitives);
+    var houses = {};
+
+    display_heckbox_qx.onclick = function (ev) {
+        tileset.show = ev.target.checked;
+    };
+    display_heckbox_building.onclick = function (ev) {
+        buildingPrimitives.show = ev.target.checked;
+    };
+    display_heckbox_floor.onclick = function (ev) {
+        floorPrimitives.show = ev.target.checked;
+    };
+    display_heckbox_house.onclick = function (ev) {
+        housePrimitives.show = ev.target.checked;
+    };
+    var referenceFramePrimitive;
+    showDebugModelMatrix.onclick=function(ev){
+        if(Cesium.defined(referenceFramePrimitive)){
+            referenceFramePrimitive.show = ev.target.checked;
+        }
+    };
+
+    setCoordinates.onclick = function (ev) {
+        var value = JSON.parse(coordinatesTextArea.value);
+        if (!Cesium.isArray(value) && value.length % 3 === 0) {
+            alert('你输入的坐标串不合法！');
+            return;
+        }
+
+        var data = {
+            boundary: value
+        };
+
+        setModelData(data);
+    };
+
+    var buildingColorPicker = new jscolor(buildingColor, {
+        valueElement: null,
+        closable: true,
+        closeText: '关闭'
+    });
+    buildingColorPicker.fromRGB(255, 255, 255);
+    buildingColorPicker.onFineChange = function () {
+        var rgba = colorConverter.Hex2RGBA(buildingColorPicker.toHEXString());
+        buildingAttributeViewModel.color = rgba;
+    };
+    var buildingHColorPicker = new jscolor(buildingHColor, {
+        valueElement: null,
+        closable: true,
+        closeText: '关闭'
+    });
+    buildingHColorPicker.fromRGB(255, 255, 255);
+    buildingHColorPicker.onFineChange = function () {
+        var rgba = colorConverter.Hex2RGBA(buildingHColorPicker.toHEXString());
+        buildingAttributeViewModel.hColor = rgba;
+    };
+
+    var floorColorPicker = new jscolor(floorColor, {
+        valueElement: null,
+        closable: true,
+        closeText: '关闭'
+    });
+    floorColorPicker.fromRGB(255, 255, 255);
+    floorColorPicker.onFineChange = function () {
+        var rgba = colorConverter.Hex2RGBA(floorColorPicker.toHEXString());
+        floorAttributeViewModel.color = rgba;
+    };
+    var floorHColorPicker = new jscolor(floorHColor, {
+        valueElement: null,
+        closable: true,
+        closeText: '关闭'
+    });
+    floorHColorPicker.fromRGB(255, 255, 255);
+    floorHColorPicker.onFineChange = function () {
+        var rgba = colorConverter.Hex2RGBA(floorHColorPicker.toHEXString());
+        floorAttributeViewModel.hColor = rgba;
+    };
+
+    var houseColorPicker = new jscolor(houseColor, {
+        valueElement: null,
+        closable: true,
+        closeText: '关闭'
+    });
+    houseColorPicker.fromRGB(255, 255, 255);
+    houseColorPicker.onFineChange = function () {
+        var rgba = colorConverter.Hex2RGBA(houseColorPicker.toHEXString());
+        houseAttributeViewModel.color = rgba;
+    };
+    var houseHColorPicker = new jscolor(houseHColor, {
+        valueElement: null,
+        closable: true,
+        closeText: '关闭'
+    });
+    houseHColorPicker.fromRGB(255, 255, 255);
+    houseHColorPicker.onFineChange = function () {
+        var rgba = colorConverter.Hex2RGBA(houseHColorPicker.toHEXString());
+        houseAttributeViewModel.hColor = rgba;
+    };
+
+
+    var drawMode = 'building';//绘制模式，building、floor、house可选
+    function showAttributePanel() {
+        switch (drawMode) {
+            case 'building':
+                buildingAttributeViewModel.show = true;
+                floorAttributeViewModel.show = false;
+                houseAttributeViewModel.show = false;
+                break;
+            case 'floor':
+                buildingAttributeViewModel.show = false;
+                floorAttributeViewModel.show = true;
+                houseAttributeViewModel.show = false;
+                break;
+            case 'house':
+                buildingAttributeViewModel.show = false;
+                floorAttributeViewModel.show = false;
+                houseAttributeViewModel.show = true;
+                break;
+        }
+    }
+
+    function drawModeChange(element) {
+        drawMode = element.value;
+        cancel.click();
+    }
+
+    var drawing = false;
+    var currentDrawPolygon;
+
+    function drawFinishedCallback(customPolygon) {
+        currentDrawPolygon = customPolygon;
+
+        drawHelper.stopDraw();
+        initCoordinateViewModel(customPolygon.positions);
+
+        drawing = false;
+        enableDraw.disabled = false;
+
+        showAttributePanel();
+    }
+
+    function setModelData(modelData) {
+        if (!Cesium.defined(currentDrawPolygon)) {
+            currentDrawPolygon = new CustomPolygonEntity(viewer, Cesium.Cartesian3.fromDegreesArrayHeights(modelData.boundary), {
+                material: new Cesium.Color(1.0, 0.0, 1.0, 0.4)
+            });
+        } else {
+            currentDrawPolygon.positions = Cesium.Cartesian3.fromDegreesArrayHeights(modelData.boundary);
+        }
+
+        initCoordinateViewModel(currentDrawPolygon.positions);
+
+        var height = 0;
+        for (var i = 2; i < modelData.boundary.length; i += 3) {
+            height = Math.max(height, modelData.boundary[i]);
+        }
+
+        switch (drawMode) {
+            case 'building':
+                buildingAttributeViewModel.buildingId = modelData.id;
+                buildingAttributeViewModel.buildingName = modelData.name;
+                buildingAttributeViewModel.buildingDescription = modelData.buildingDescription;
+                if (Cesium.defined(modelData.color)) {
+                    buildingAttributeViewModel.color = modelData.color;
+                }
+                if (Cesium.defined(modelData.hColor)) {
+                    buildingAttributeViewModel.hColor = modelData.hColor;
+                }
+
+                buildingAttributeViewModel.show = true;
+                floorAttributeViewModel.show = false;
+                houseAttributeViewModel.show = false;
+                break;
+            case 'floor':
+                floorAttributeViewModel.floorId = modelData.id;
+                if (Cesium.defined(modelData.buildingId)) {
+                    floorAttributeViewModel.chosenBuildingId([modelData.buildingId]);
+                } else {
+                    floorAttributeViewModel.chosenBuildingId([0]);
+                }
+
+                floorAttributeViewModel.floorName = modelData.name;
+                floorAttributeViewModel.altitude = Cesium.defined(modelData.altitude) ? Number(modelData.altitude) : height;
+                floorAttributeViewModel.height = Cesium.defined(modelData.height) ? Number(modelData.height) : 0;
+                floorAttributeViewModel.floorDescription = modelData.floorDescription;
+                if (Cesium.defined(modelData.color)) {
+                    floorAttributeViewModel.color = modelData.color;
+                }
+                if (Cesium.defined(modelData.hColor)) {
+                    floorAttributeViewModel.hColor = modelData.hColor;
+                }
+
+                buildingAttributeViewModel.show = false;
+                floorAttributeViewModel.show = true;
+                houseAttributeViewModel.show = false;
+                break;
+            case 'house':
+                houseAttributeViewModel.houseId = modelData.id;
+
+                if (Cesium.defined(modelData.floorId)) {
+                    houseAttributeViewModel.chosenFloorId([modelData.floorId]);
+                } else {
+                    houseAttributeViewModel.chosenFloorId([0]);
+                }
+                if (Cesium.defined(modelData.buildingId)) {
+                    floorAttributeViewModel.chosenBuildingId([modelData.buildingId]);
+                } else {
+                    houseAttributeViewModel.chosenBuildingId([0]);
+                }
+
+                houseAttributeViewModel.houseName = modelData.houseName;
+                houseAttributeViewModel.altitude = Cesium.defined(modelData.altitude) ? Number(modelData).altitude : height;
+                houseAttributeViewModel.height = Cesium.defined(modelData.height) ? Number(modelData.height) : 0;
+                houseAttributeViewModel.houseDescription = modelData.houseDescription;
+                if (Cesium.defined(modelData.color)) {
+                    houseAttributeViewModel.color = modelData.color;
+                }
+                if (Cesium.defined(modelData.hColor)) {
+                    houseAttributeViewModel.hColor = modelData.hColor;
+                }
+
+                houseAttributeViewModel.offset = "[0,0,0]";
+
+                buildingAttributeViewModel.show = false;
+                floorAttributeViewModel.show = false;
+                houseAttributeViewModel.show = true;
+                break;
+        }
+    }
+
+    //初始化绘制类
+    var drawHelper = new DrawHelper(viewer, drawFinishedCallback);
+    enableDraw.onclick = function (ev) {
+        drawHelper._selectable = false;//设置不可选择
+        drawHelper.startDraw();
+        drawing = true;
+        enableDraw.disabled = true;
+    };
+
+    var marker = viewer.entities.add({
+        position: new Cesium.Cartesian3(),
+        billboard: {
+            image: './img/poi.png',
+            //heightReference:Cesium.HeightReference.CLAMP_TO_GROUND,
+            verticalOrigin: Cesium.VerticalOrigin.BOTTOM
+        },
+        show: false
+    });
+    var coordinateViewModel = {
+        coordinates: [],
+        positions: function () {
+            var arr = [];
+            var coordinates = coordinateViewModel.coordinates;
+            for (var i = 0; i < coordinates.length; i++) {
+                var coordinate = coordinates[i];
+                arr.push(Cesium.Cartesian3.fromDegrees(coordinate.x, coordinate.y));
+            }
+
+            return arr;
+        },
+        boundary: function () {
+            var arr = [];
+            var coordinates = coordinateViewModel.coordinates;
+            for (var i = 0; i < coordinates.length; i++) {
+                var coordinate = coordinates[i];
+                arr.push(coordinate.x);
+                arr.push(coordinate.y);
+                arr.push(coordinate.z);
+            }
+
+            return arr;
+        },
+        boundaryXY: function () {
+            var arr = [];
+            var coordinates = coordinateViewModel.coordinates;
+            for (var i = 0; i < coordinates.length; i++) {
+                var coordinate = coordinates[i];
+                arr.push(coordinate.x);
+                arr.push(coordinate.y);
+            }
+
+            return arr;
+        },
+        activeCoordinate: undefined,
+        editCoordinate: undefined,
+        mouseover: function (data, index) {
+            coordinateViewModel.activeCoordinate = data;
+            var p = Cesium.Cartographic.fromDegrees(data.x, data.y, data.z);
+            var height = viewer.scene.sampleHeight(p);
+            marker.position = Cesium.Cartesian3.fromDegrees(data.x, data.y, height);
+            marker.show = true;
+        },
+        mouseout: function (data, index) {
+            coordinateViewModel.activeCoordinate = undefined;
+            marker.show = false;
+        },
+        delete: function (data, index) {
+            coordinateViewModel.coordinates.splice(index, 1);
+            marker.show = false;
+        },
+        edit: function (data, index) {
+            coordinateViewModel.editCoordinate = data;
+        },
+        buildingIdOptions: [],
+        chosenBuildingId: Cesium.knockout.observableArray([]),
+        chosenBuildingIdChange: function () {
+            var chosenBuildingId = coordinateViewModel.chosenBuildingId();
+            var data = getBuildingData(datas, chosenBuildingId[0]);
+            if (!Cesium.defined(data)) {
+                return;
+            }
+            setModelData(data);
+        },
+        floorIdOptions: [],
+        chosenFloorId: Cesium.knockout.observableArray([]),
+        chosenFloorIdChange: function () {
+            var chosenFloorId = coordinateViewModel.chosenFloorId();
+            var data = getFloorData(datas, chosenFloorId[0]);
+            if (!Cesium.defined(data)) {
+                return;
+            }
+            setModelData(data);
+        },
+        houseIdOptions: [],
+        chosenHouseId: Cesium.knockout.observableArray([]),
+        chosenHouseIdChange: function () {
+            var chosenHouseId = coordinateViewModel.chosenHouseId();
+            var data = getHouseData(datas, chosenHouseId[0]);
+            if (!Cesium.defined(data)) {
+                return;
+            }
+            setModelData(data);
+        }
+    };
+
+    function initCoordinateViewModel(positions) {
+        coordinateViewModel.coordinates = [];
+        var h=0;
+        for (var i = 0; i < positions.length; i++) {
+            var cartographic = ellipsoid.cartesianToCartographic(positions[i]);
+            var x = Cesium.Math.toDegrees(cartographic.longitude);
+            var y = Cesium.Math.toDegrees(cartographic.latitude);
+            var height = viewer.scene.sampleHeight(cartographic);
+
+            h=Math.max(h,height);
+            var coordinate = {
+                x: x,
+                y: y,
+                z: height
+            };
+            Cesium.knockout.track(coordinate, ['x', 'y']);
+
+            coordinateViewModel.coordinates.push(coordinate);
+        }
+
+        if(Cesium.defined(referenceFramePrimitive)){
+            scene.primitives.remove(referenceFramePrimitive);
+        }
+        if(drawMode==='house'){
+            var position=getCenterOfGravityPoint(coordinateViewModel.boundaryXY());
+            var center = Cesium.Cartesian3.fromDegrees(position[0], position[1],h);
+            var transform = Cesium.Transforms.eastNorthUpToFixedFrame(center);
+
+            referenceFramePrimitive = scene.primitives.add(new Cesium.DebugModelMatrixPrimitive({
+                modelMatrix : transform,
+                length : 1000.0,
+                width : 5.0
+            }));
+
+            referenceFramePrimitive.oModelMatrix=transform.clone();
+        }
+
+    }
+
+    Cesium.knockout.track(coordinateViewModel, ['coordinates', 'buildingIdOptions', 'floorIdOptions', 'houseIdOptions']);
+    Cesium.knockout.applyBindings(coordinateViewModel, coordinatePanel);
+    var coordinateViewModelCoordinateSubscribtion = Cesium.knockout.getObservable(coordinateViewModel, 'coordinates').subscribe(function (coordinates) {
+        if (!drawing && Cesium.defined(currentDrawPolygon)) {//不再绘制状态下执行
+            houseAttributeViewModel.offset='[0,0,0]';
+            currentDrawPolygon.positions = coordinateViewModel.positions();
+        }
+    });
+
+    var buildingAttributeViewModel = {
+        show: false,
+        buildingId: '',
+        buildingName: '',
+        color: 'rgba(255,0,255,0)',
+        hColor: 'rgba(255,0,255,0.4)',
+        buildingDescription: ''
+    };
+    Cesium.knockout.track(buildingAttributeViewModel, ['show', 'color', 'hColor']);
+    Cesium.knockout.applyBindings(buildingAttributeViewModel, buildingAttribute);
+    Cesium.knockout.getObservable(buildingAttributeViewModel, 'color').subscribe(function (color) {
+        var bg = color.match(/^rgba\((\d+),\s*(\d+),\s*(\d+),\s*(0(\.\d{1,4})?|1(\.0{1,4})?)\)$/);
+        if (!Cesium.defined(bg)) {
+            return;
+        }
+        currentDrawPolygon.entity.polygon.material = new Cesium.Color.fromCssColorString(color);
+        buildingColorPicker.fromRGB(bg[1], bg[2], bg[3]);
+    });
+    Cesium.knockout.getObservable(buildingAttributeViewModel, 'hColor').subscribe(function (color) {
+        var bg = color.match(/^rgba\((\d+),\s*(\d+),\s*(\d+),\s*(0(\.\d{1,4})?|1(\.0{1,4})?)\)$/);
+        if (!Cesium.defined(bg)) {
+            return;
+        }
+        currentDrawPolygon.entity.polygon.material = new Cesium.Color.fromCssColorString(color);
+        buildingHColorPicker.fromRGB(bg[1], bg[2], bg[3]);
+    });
+    var floorAttributeViewModel = {
+        show: false,
+        buildingId: '',
+        floorId: '',
+        floorName: '',
+        altitude: '',
+        height: '',
+        color: 'rgba(255,0,255,0)',
+        hColor: 'rgba(255,0,255,0.4)',
+        floorDescription: '',
+        buildingIdOptions: [],
+        chosenBuildingId: Cesium.knockout.observableArray([0]),
+        chosenBuildingIdChange: function () {
+            var chosenBuildingId = floorAttributeViewModel.chosenBuildingId();
+            floorAttributeViewModel.buildingId = chosenBuildingId[0];
+        }
+    };
+    Cesium.knockout.track(floorAttributeViewModel, ['show', 'color', 'hColor', 'buildingIdOptions', 'altitude', 'height']);
+    Cesium.knockout.applyBindings(floorAttributeViewModel, floorAttribute);
+    Cesium.knockout.getObservable(floorAttributeViewModel, 'color').subscribe(function (color) {
+        var bg = color.match(/^rgba\((\d+),\s*(\d+),\s*(\d+),\s*(0(\.\d{1,4})?|1(\.0{1,4})?)\)$/);
+        if (!Cesium.defined(bg)) {
+            return;
+        }
+        currentDrawPolygon.entity.polygon.material = new Cesium.Color.fromCssColorString(color);
+        floorColorPicker.fromRGB(bg[1], bg[2], bg[3]);
+    });
+    Cesium.knockout.getObservable(floorAttributeViewModel, 'hColor').subscribe(function (color) {
+        var bg = color.match(/^rgba\((\d+),\s*(\d+),\s*(\d+),\s*(0(\.\d{1,4})?|1(\.0{1,4})?)\)$/);
+        if (!Cesium.defined(bg)) {
+            return;
+        }
+        currentDrawPolygon.entity.polygon.material = new Cesium.Color.fromCssColorString(color);
+        floorHColorPicker.fromRGB(bg[1], bg[2], bg[3]);
+    });
+    Cesium.knockout.getObservable(floorAttributeViewModel, 'altitude').subscribe(function (altitude) {
+        var h = Cesium.defined(floorAttributeViewModel.height) ? floorAttributeViewModel.height : 0;
+        altitude = Number(altitude);
+        h=Number(h);
+        if (isNaN(h) || isNaN(altitude)) {
+            return;
+        }
+        currentDrawPolygon.entity.polygon.height=altitude;
+        currentDrawPolygon.entity.polygon.extrudedHeight = h + altitude;
+    });
+    Cesium.knockout.getObservable(floorAttributeViewModel, 'height').subscribe(function (height) {
+        var h = Cesium.defined(floorAttributeViewModel.altitude) ? floorAttributeViewModel.altitude : 0;
+        h = Number(h);
+        height = Number(height);
+        if (isNaN(h) || isNaN(height)) {
+            return;
+        }
+        currentDrawPolygon.entity.polygon.extrudedHeight = h + height;
+    });
+    var houseAttributeViewModel = {
+        show: false,
+        buildingId: '',
+        floorId: '',
+        houseId: '',
+        houseName: '',
+        altitude: '',
+        height: '',
+        color: 'rgba(255,0,255,0)',
+        hColor: 'rgba(255,0,255,0.4)',
+        offset: "[0,0,0]",
+        houseDescription: '',
+        buildingIdOptions: [],
+        chosenBuildingId: Cesium.knockout.observableArray([]),
+        chosenBuildingIdChange: function () {
+            var chosenBuildingId = houseAttributeViewModel.chosenBuildingId();
+            houseAttributeViewModel.buildingId = chosenBuildingId[0];
+        },
+        floorIdOptions: [],
+        chosenFloorId: Cesium.knockout.observableArray([]),
+        chosenFloorIdChange: function () {
+            var chosenFloorId = houseAttributeViewModel.chosenFloorId();
+            houseAttributeViewModel.floorId = chosenFloorId[0];
+        }
+    };
+    Cesium.knockout.track(houseAttributeViewModel, ['show', 'color', 'hColor', 'buildingIdOptions', 'floorIdOptions', 'altitude', 'height', 'offset']);
+    Cesium.knockout.applyBindings(houseAttributeViewModel, houseAttribute);
+    Cesium.knockout.getObservable(houseAttributeViewModel, 'color').subscribe(function (color) {
+        var bg = color.match(/^rgba\((\d+),\s*(\d+),\s*(\d+),\s*(0(\.\d{1,4})?|1(\.0{1,4})?)\)$/);
+        if (!Cesium.defined(bg)) {
+            return;
+        }
+        currentDrawPolygon.entity.polygon.material = new Cesium.Color.fromCssColorString(color);
+        houseColorPicker.fromRGB(bg[1], bg[2], bg[3]);
+    });
+    Cesium.knockout.getObservable(houseAttributeViewModel, 'hColor').subscribe(function (color) {
+        var bg = color.match(/^rgba\((\d+),\s*(\d+),\s*(\d+),\s*(0(\.\d{1,4})?|1(\.0{1,4})?)\)$/);
+        if (!Cesium.defined(bg)) {
+            return;
+        }
+        currentDrawPolygon.entity.polygon.material = new Cesium.Color.fromCssColorString(color);
+        houseHColorPicker.fromRGB(bg[1], bg[2], bg[3]);
+    });
+    Cesium.knockout.getObservable(houseAttributeViewModel, 'altitude').subscribe(function (altitude) {
+        var h = Cesium.defined(houseAttributeViewModel.height) ? houseAttributeViewModel.height : 0;
+
+        altitude = Number(altitude);
+        h=Number(h);
+
+        if (isNaN(h) || isNaN(altitude)) {
+            return;
+        }
+        currentDrawPolygon.entity.polygon.height=altitude;
+        currentDrawPolygon.entity.polygon.extrudedHeight = h + altitude;
+
+        var position=getCenterOfGravityPoint(coordinateViewModel.boundaryXY());
+        var center = Cesium.Cartesian3.fromDegrees(position[0], position[1],h + altitude);
+        var transform = Cesium.Transforms.eastNorthUpToFixedFrame(center);
+        referenceFramePrimitive.modelMatrix=transform;
+        referenceFramePrimitive.oModelMatrix=transform.clone();
+    });
+    Cesium.knockout.getObservable(houseAttributeViewModel, 'height').subscribe(function (height) {
+        var h = Cesium.defined(houseAttributeViewModel.altitude) ? houseAttributeViewModel.altitude : 0;
+        h = Number(h);
+        height = Number(height);
+        if (isNaN(h) || isNaN(height)) {
+            return;
+        }
+        currentDrawPolygon.entity.polygon.extrudedHeight = h + height;
+
+        var position=getCenterOfGravityPoint(coordinateViewModel.boundaryXY());
+        var center = Cesium.Cartesian3.fromDegrees(position[0], position[1],h + height);
+        var transform = Cesium.Transforms.eastNorthUpToFixedFrame(center);
+        referenceFramePrimitive.modelMatrix=transform;
+        referenceFramePrimitive.oModelMatrix=transform.clone();
+    });
+    Cesium.knockout.getObservable(houseAttributeViewModel, 'offset').subscribe(function (offset) {
+        offset = JSON.parse(offset);
+
+        var x = offset[0];
+        var y = offset[1];
+        var z = offset[2];
+        x = Number(x);
+        y = Number(y);
+        z = Number(z);
+        if (isNaN(x) || isNaN(y) || isNaN(z)) {
+            return;
+        }
+
+        var modelMatrix=referenceFramePrimitive.oModelMatrix;
+        modelMatrix=Cesium.Matrix4.multiplyByTranslation(modelMatrix, new Cesium.Cartesian3(x, y, z), new Cesium.Matrix4());
+        referenceFramePrimitive.modelMatrix=modelMatrix;
+
+        var positions=coordinateViewModel.positions();
+        for (var i = 0; i < positions.length; i++) {
+            var p=positions[i].clone();
+
+            var transform = Cesium.Transforms.eastNorthUpToFixedFrame(p);
+            var m=Cesium.Matrix4.multiplyByTranslation(transform, new Cesium.Cartesian3(x, y, z), new Cesium.Matrix4());
+            var p1 = Cesium.Matrix4.getTranslation(m,new Cesium.Cartesian3());
+
+            currentDrawPolygon.positions[i]=p1;
+        }
+
+        var altitude=Number(houseAttributeViewModel.altitude);
+        var height=Number(houseAttributeViewModel.height);
+        currentDrawPolygon.entity.polygon.height=altitude+z;
+        currentDrawPolygon.entity.polygon.extrudedHeight = altitude+height+z;
+
+    });
+
+
+    function updateBuilding(building, attributes) {
+        building.id = attributes.id;
+        building.boundary = attributes.boundary;
+        building.name = attributes.name;
+        building.color = attributes.color;
+        building.hColor = attributes.hColor;
+        building.description = attributes.description;
+    }
+
+    function updateFloor(floor, attributes) {
+        floor.id = attributes.id;
+        floor.buildingId = attributes.buildingId;
+        floor.boundary = attributes.boundary;
+        floor.name = attributes.name;
+        floor.color = attributes.color;
+        floor.hColor = attributes.hColor;
+        floor.description = attributes.description;
+        floor.altitude = attributes.altitude;
+        floor.height = attributes.height;
+    }
+
+    function updateHouse(house, attributes) {
+        house.id = attributes.id;
+        house.buildingId = attributes.buildingId;
+        house.floorId = attributes.floorId;
+        house.boundary = attributes.boundary;
+        house.name = attributes.name;
+        house.color = attributes.color;
+        house.hColor = attributes.hColor;
+        house.offset = attributes.offset;
+        house.description = attributes.description;
+        house.altitude = attributes.altitude;
+        house.height = attributes.height;
+    }
+
+
+    save.onclick = function () {
+        switch (drawMode) {
+            case 'building':
+                var building = getBuildingData(datas, buildingAttributeViewModel.buildingId);
+                var attributes = {
+                    id: buildingAttributeViewModel.buildingId,
+                    name: buildingAttributeViewModel.buildingName,
+                    color: buildingAttributeViewModel.color,
+                    hColor: buildingAttributeViewModel.hColor,
+                    description: buildingAttributeViewModel.buildingDescription,
+                    boundary: coordinateViewModel.boundary(),
+                    floors: []
+                };
+                if (Cesium.defined(building)) {
+                    updateBuilding(building, attributes);
+                } else {
+                    datas.push(attributes);
+                    var buildingIdOption = {
+                        id: buildingAttributeViewModel.buildingId
+                    };
+                    Cesium.knockout.track(buildingIdOption, ['id']);
+                    floorAttributeViewModel.buildingIdOptions.push(buildingIdOption);
+                    houseAttributeViewModel.buildingIdOptions.push(buildingIdOption);
+                    coordinateViewModel.buildingIdOptions.push(buildingIdOption);
+                }
+
+                //添加实体到地图
+                var buildingData = Cesium.clone(attributes, true);
+                buildingData.color = buildingData.hColor;
+                if (Cesium.defined(buildings[buildingData.id])) {
+                    buildingPrimitives.remove(buildings[buildingData.id])
+                }
+                buildings[buildingData.id] = createBuilding(buildingData, buildingPrimitives);
+
+
+                //保存数据
+                localStorage.setItem('datas', JSON.stringify(datas));
+
+                //隐藏属性框
+                buildingAttributeViewModel.show = false;
+                break;
+            case 'floor':
+                if (floorAttributeViewModel.buildingId === '') {
+                    alert('请选择楼栋ID！');
+                }
+                var building = getBuildingData(datas, floorAttributeViewModel.buildingId);
+                var floor = getFloorData(datas, floorAttributeViewModel.floorId, floorAttributeViewModel.buildingId);
+                var attributes = {
+                    id: floorAttributeViewModel.floorId,
+                    buildingId: floorAttributeViewModel.buildingId,
+                    name: floorAttributeViewModel.floorName,
+                    color: floorAttributeViewModel.color,
+                    hColor: floorAttributeViewModel.hColor,
+                    description: floorAttributeViewModel.floorDescription,
+                    boundary: coordinateViewModel.boundary(),
+                    altitude: floorAttributeViewModel.altitude,
+                    height: floorAttributeViewModel.height,
+                    houses: []
+                };
+                if (Cesium.defined(floor)) {
+                    updateFloor(floor, attributes);
+                } else {
+                    building.floors.push(attributes);
+                    var floorIdOption = {
+                        id: floorAttributeViewModel.floorId
+                    };
+                    Cesium.knockout.track(floorIdOption, ['id']);
+                    houseAttributeViewModel.floorIdOptions.push(floorIdOption);
+                    coordinateViewModel.floorIdOptions.push(floorIdOption);
+                }
+                //添加实体到地图
+                var floorData = Cesium.clone(attributes, true);
+                floorData.color = floorData.hColor;
+                if (Cesium.defined(floors[floorData.id])) {
+                    floorPrimitives.remove(floors[floorData.id])
+                }
+                floors[floorData.id] = createFloor(floorData, floorPrimitives);
+
+
+                //保存数据
+                localStorage.setItem('datas', JSON.stringify(datas));
+
+                floorAttributeViewModel.show = false;
+                break;
+            case 'house':
+                if (houseAttributeViewModel.buildingId === '') {
+                    alert('请选择楼栋ID！');
+                }
+                if (houseAttributeViewModel.floorId === '') {
+                    alert('请选择楼层ID！');
+                }
+                var floor = getFloorData(datas, houseAttributeViewModel.floorId, houseAttributeViewModel.buildingId);
+                var house = getHouseData(datas, houseAttributeViewModel.houseId, houseAttributeViewModel.floorId, houseAttributeViewModel.buildingId);
+                var attributes = {
+                    id: houseAttributeViewModel.houseId,
+                    buildingId: houseAttributeViewModel.buildingId,
+                    floorId: houseAttributeViewModel.floorId,
+                    name: houseAttributeViewModel.floorName,
+                    color: houseAttributeViewModel.color,
+                    hColor: houseAttributeViewModel.hColor,
+                    offset: houseAttributeViewModel.offset,
+                    description: houseAttributeViewModel.floorDescription,
+                    boundary: coordinateViewModel.boundary(),
+                    altitude: houseAttributeViewModel.altitude,
+                    height: houseAttributeViewModel.height
+                };
+                if (Cesium.defined(house)) {
+                    updateFloor(house, attributes);
+                } else {
+                    floor.houses.push(attributes);
+                    var houseIdOption = {
+                        id: houseAttributeViewModel.houseId
+                    };
+                    Cesium.knockout.track(houseIdOption, ['id']);
+                    coordinateViewModel.houseIdOptions.push(houseIdOption);
+                }
+
+                //添加实体到地图
+                var houseData = Cesium.clone(attributes, true);
+                houseData.color = houseData.hColor;
+                if (Cesium.defined(houses[houseData.id])) {
+                    housePrimitives.remove(houses[houseData.id])
+                }
+                houses[houseData.id] = createHouse(houseData, housePrimitives);
+
+                //保存数据
+                localStorage.setItem('datas', JSON.stringify(datas));
+
+                houseAttributeViewModel.show = false;
+                break;
+        }
+
+        viewer.entities.remove(currentDrawPolygon.entity);
+        coordinateViewModel.coordinates = [];
+        currentDrawPolygon = undefined;
+
+        buildingAttributeViewModel.show = false;
+        floorAttributeViewModel.show = false;
+        houseAttributeViewModel.show = false;
+
+        coordinateViewModel.chosenBuildingId(['请选择']);
+        coordinateViewModel.chosenFloorId(['请选择']);
+        coordinateViewModel.chosenHouseId(['请选择']);
+    };
+    deleteEle.onclick = function () {
+        switch (drawMode) {
+            case 'building':
+                var buildingId = buildingAttributeViewModel.buildingId;
+                for (var i = 0; i < datas.length; i++) {
+                    if (datas[i].id === buildingId) {
+                        datas.splice(i, 1);
+                        break;
+                    }
+                }
+                break;
+            case 'floor':
+                var buildingId = floorAttributeViewModel.buildingId;
+                var floorId = floorAttributeViewModel.floorId;
+                for (var i = 0; i < datas.length; i++) {
+                    if (datas[i].id === buildingId) {
+                        for (var j = 0; j < datas[i].floors.length; j++) {
+                            if (datas[i].floors[j].id === floorId) {
+                                datas[i].floors.splice(j, 1);
+                                break;
+                            }
+                        }
+                    }
+                }
+                break;
+            case 'house':
+                var buildingId = houseAttributeViewModel.buildingId;
+                var floorId = houseAttributeViewModel.floorId;
+                var houseId = houseAttributeViewModel.houseId;
+                for (var i = 0; i < datas.length; i++) {
+                    if (datas[i].id === buildingId) {
+                        for (var j = 0; j < datas[i].floors.length; j++) {
+                            if (datas[i].floors[j].id === floorId) {
+                                for (var k = 0; k < datas[i].floors[j].houses.length; k++) {
+                                    if (datas[i].floors[j].houses[k].id === houseId) {
+                                        datas[i].floors[j].houses.splice(k, 1);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                break;
+        }
+        localStorage.setItem('datas', JSON.stringify(datas));
+
+        viewer.entities.remove(currentDrawPolygon.entity);
+        coordinateViewModel.coordinates = [];
+        currentDrawPolygon = undefined;
+
+        buildingAttributeViewModel.show = false;
+        floorAttributeViewModel.show = false;
+        houseAttributeViewModel.show = false;
+
+        coordinateViewModel.chosenBuildingId(['请选择']);
+        coordinateViewModel.chosenFloorId(['请选择']);
+        coordinateViewModel.chosenHouseId(['请选择']);
+    };
+    cancel.onclick = function () {
+        if(Cesium.defined(currentDrawPolygon)){
+            viewer.entities.remove(currentDrawPolygon.entity);
+        }
+
+        coordinateViewModel.coordinates = [];
+        currentDrawPolygon = undefined;
+
+        buildingAttributeViewModel.show = false;
+        floorAttributeViewModel.show = false;
+        houseAttributeViewModel.show = false;
+
+        coordinateViewModel.chosenBuildingId(['请选择']);
+        coordinateViewModel.chosenFloorId(['请选择']);
+        coordinateViewModel.chosenHouseId(['请选择']);
+    };
+
+
+    var handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+
+    //鼠标移动事件
+    handler.setInputAction(function (movement) {
+        var position = drawHelper._getMousePos(movement.endPosition);
+        if (!Cesium.defined(position)) {
+            return;
+        }
+
+        if (Cesium.defined(coordinateViewModel.editCoordinate)) {
+            var cartographic = ellipsoid.cartesianToCartographic(position);
+            var x = Cesium.Math.toDegrees(cartographic.longitude);
+            var y = Cesium.Math.toDegrees(cartographic.latitude);
+            var height = viewer.scene.sampleHeight(cartographic);
+
+            coordinateViewModel.editCoordinate.x = x;
+            coordinateViewModel.editCoordinate.y = y;
+            coordinateViewModel.editCoordinate.z = height;
+            if (!drawing) {//不再绘制状态下执行
+                currentDrawPolygon.positions = coordinateViewModel.positions();
+            }
+        }
+    }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
+
+    //鼠标单击事件
+    handler.setInputAction(function (movement) {
+        var position = drawHelper._getMousePos(movement.position);
+        if (!Cesium.defined(position)) {
+            return;
+        }
+
+        if (Cesium.defined(coordinateViewModel.editCoordinate)) {
+            var cartographic = ellipsoid.cartesianToCartographic(position);
+            var x = Cesium.Math.toDegrees(cartographic.longitude);
+            var y = Cesium.Math.toDegrees(cartographic.latitude);
+            var height = viewer.scene.sampleHeight(cartographic);
+
+            coordinateViewModel.editCoordinate.x = x;
+            coordinateViewModel.editCoordinate.y = y;
+            coordinateViewModel.editCoordinate.z = height;
+            if (!drawing) {//不再绘制状态下执行
+                currentDrawPolygon.positions = coordinateViewModel.positions();
+            }
+
+            coordinateViewModel.editCoordinate = undefined;
+        }
+    }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
+
+</script>
+</html>

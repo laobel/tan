@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>分层分户演示</title>
+    <script src="./lib/jscolor-2.0.5/jscolor.min.js"></script>
+    <script src="https://cesiumjs.org/Cesium/Build/CesiumUnminified/Cesium.js"></script>
+    <script src="./js/CesiumExtension.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/colorConverter.js"></script>
+    <style>
+        @import url(https://cesiumjs.org/Cesium/Build/CesiumUnminified/Widgets/widgets.css);
+        @import url(./css/ToolTips.css);
+
+        html, body, #cesiumContainer {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .panel {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 500px;
+            color: white;
+            background-color: rgba(50, 50, 50, 0.8);
+            z-index: 999999;
+        }
+
+        .panel button {
+            cursor: pointer;
+        }
+
+        .panel > div {
+            padding: 5px 10px;
+        }
+
+        .panel > div > button {
+            margin: 0 10px;
+            cursor: pointer;
+        }
+
+        #coordinatePanel:first-child {
+            line-height: 30px;
+        }
+
+        #coordinatePanel ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #coordinatePanel ul li {
+            list-style: none;
+            padding: 5px 0;
+            cursor: pointer;
+        }
+
+        #coordinatePanel ul li:hover {
+            background-color: #0088FF;
+        }
+
+        #coordinatePanel ul input {
+            width: 140px;
+        }
+
+        #coordinatePanel ul li span {
+            float: right;
+            margin-right: 10px;
+            padding: 5px;
+            background-color: #3F9E65;
+        }
+
+        #coordinatePanel > div > textarea {
+            vertical-align: middle;
+            width: calc(100% - 60px);
+            height: 60px;
+        }
+
+        #coordinatePanel > div > button {
+            vertical-align: middle;
+        }
+
+        #attributePanel > div {
+            line-height: 30px;
+        }
+
+        #attributePanel label {
+            vertical-align: middle;
+        }
+
+        #attributePanel textarea {
+            vertical-align: middle;
+            width: calc(100% - 100px);
+            height: 60px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="cesiumContainer"></div>
+<div class="panel" oncontextmenu=window.event.returnValue=false;>
+    <div style="width: 100%;" id="msg">
+
+    </div>
+</div>
+</body>
+<script>
+    var datas = [];
+
+    localStorage.setItem('datas', JSON.stringify(datas));
+
+    var msg = document.getElementById('msg');
+    /**
+     * 设置描述信息
+     * @param dataId
+     */
+    function setDescription(dataId) {
+        var data=getDataById(datas,dataId);
+        if(Cesium.defined(data)){
+            msg.innerHTML=data.description
+        }else {
+            msg.innerHTML='';
+        }
+    }
+
+
+    var viewer = new Cesium.Viewer('cesiumContainer', {
+        terrainProvider: Cesium.createWorldTerrain(),
+        baseLayerPicker: false,
+        geocoder: false,
+        homeButton: false,
+        navigationHelpButton: false,
+        sceneModePicker: false,
+        timeline: false
+    });
+
+    var scene = viewer.scene;
+    var camera = scene.camera;
+    var ellipsoid = viewer.scene.globe.ellipsoid;
+
+    scene.globe.depthTestAgainstTerrain=true;
+
+    camera.setView({
+        destination: new Cesium.Cartesian3(1216394.1392207467, -4736348.59346919, 4081293.9160685353),
+        orientation: {
+            heading: 0.018509338875732695,
+            pitch: -0.09272999615872646
+        }
+    });
+
+    //添加倾斜模型
+    var tileset = new Cesium.Cesium3DTileset({url: Cesium.IonResource.fromAssetId(6074)});
+    scene.primitives.add(tileset);
+
+    //创建建筑物
+    var buildingPrimitives = new Cesium.PrimitiveCollection();
+    scene.primitives.add(buildingPrimitives);
+
+    //创建楼层
+    var floorPrimitives = new Cesium.PrimitiveCollection();
+    scene.primitives.add(floorPrimitives);
+
+    //创建房屋
+    var housePrimitives = new Cesium.PrimitiveCollection();
+    scene.primitives.add(housePrimitives);
+    var labels = scene.primitives.add(new Cesium.LabelCollection());
+
+    var datas=[
+        {
+            boundary:[-75.5963588018433, 40.039038878307025, 83.94704559184474, -75.59613228323849, 40.03866867901287, 80.55491577869533, -75.596851894246, 40.03835329251404, 80.23164101374445, -75.59714501739747, 40.038712360163835, 79.99290554958058],
+            color: "rgba(255,0,255,0)",
+            description: "",
+            floors: [
+                {
+                    altitude: 83.94704559184474,
+                    boundary: [-75.5963588018433, 40.03903887830701, 83.94704559184474, -75.59613228323849, 40.03866867901287, 80.55491577869533, -75.596851894246, 40.03835329251403, 80.23164101241036, -75.59714501739747, 40.03871236016382, 79.99225185219305],
+                    buildingId: "b1",
+                    color: "rgba(255,0,255,0)",
+                    hColor: "rgba(255,0,255,0.4)",
+                    height: "4",
+                    houses: [{
+                        altitude: 83.94704559184474,
+                        boundary: [-75.5963588018433, 40.03903887830701, 83.94704559184474, -75.59616698124897, 40.038675958709696, 85.74259926474352, -75.596851894246, 40.03835329251403, 80.23164101517003, -75.59714501739747, 40.03871236016382, 79.9929872645255],
+                        buildingId: "b1",
+                        color: "rgba(255,255,0,1)",
+                        floorId: "f1",
+                        hColor: "rgba(255,0,255,0.4)",
+                        height: "4",
+                        id: "h1",
+                        offset: "[100,10,10]",
+                    }],
+                    id: "f1",
+                    name: "",
+                },
+                {
+                    altitude: 88,
+                    boundary: [-75.5963588018433, 40.03903887830701, 83.94704559184474, -75.59613228323849, 40.03866867901287, 80.55491577869533, -75.596851894246, 40.03835329251403, 80.23164101241036, -75.59714501739747, 40.03871236016382, 79.99225185219305],
+                    buildingId: "b1",
+                    color: "rgba(255,0,255,0)",
+                    hColor: "rgba(255,0,255,0.4)",
+                    height: "4",
+                    houses: [{
+                        altitude: 88,
+                        boundary: [-75.5963588018433, 40.03903887830701, 83.94704559184474, -75.59616698124897, 40.038675958709696, 85.74259926474352, -75.596851894246, 40.03835329251403, 80.23164101517003, -75.59714501739747, 40.03871236016382, 79.9929872645255],
+                        buildingId: "b1",
+                        color: "rgba(255,255,0,1)",
+                        floorId: "f2",
+                        hColor: "rgba(255,0,255,0.4)",
+                        height: "0.1",
+                        id: "h2",
+                        offset: "[100,10,10]",
+                    },
+                        {
+                            altitude: 88,
+                            boundary: [-75.5963588018433, 40.03903887830701, 83.94704559184474, -75.59616698124897, 40.038675958709696, 85.74259926474352, -75.596851894246, 40.03835329251403, 80.23164101517003, -75.59714501739747, 40.03871236016382, 79.9929872645255],
+                            buildingId: "b1",
+                            color: "rgba(0,255,255,1)",
+                            floorId: "f2",
+                            hColor: "rgba(0,0,255,1)",
+                            height: "4",
+                            id: "h3",
+                            offset: "[100,10,10]",
+                        }],
+                    id: "f2",
+                    name: "",
+                }
+            ],
+            hColor: "rgba(255,0,255,0.4)",
+            id: "b1",
+            name: "",
+        }
+    ];
+    var datas=[];
+    var buildingIds=[];
+    var floorIds=[];
+    var houseIds=[];
+
+    function updateDatas() {
+        unHighlightBuilding();
+        unHighlightFloor();
+        unHighlightHouse();
+        unSelectBuilding();
+        unSelectFloor();
+        unSelectHouse();
+
+        buildingPrimitives.removeAll();
+        floorPrimitives.removeAll();
+        housePrimitives.removeAll();
+        labels.removeAll();
+
+        buildingIds=[];
+        floorIds=[];
+        houseIds=[];
+
+        if(datas.length<=0){
+            return;
+        }
+
+        for(var i=0;i<datas.length;i++){
+            createBuilding(datas[i],buildingPrimitives);
+            buildingIds.push(datas[i].id);
+            for(var j=0;j<datas[i].floors.length;j++){
+                createFloor(datas[i].floors[j],floorPrimitives);
+                floorIds.push(datas[i].floors[j].id);
+                for(var k=0;k<datas[i].floors[j].houses.length;k++){
+                    houseIds.push(datas[i].floors[j].houses[k].id);
+                }
+            }
+        }
+    }
+    updateDatas();
+    window.addEventListener("storage", function (e) {
+        datas = JSON.parse(localStorage.getItem("datas"));//接收数据
+
+        updateDatas();
+    });
+
+    
+    function getPickedObj(windowPosition) {
+        var pickedObjects = scene.drillPick(windowPosition);
+
+        console.log(pickedObjects);
+
+        var pickedBuildingObj,pickedFloorObj,pickedHouseObj;
+        for(var i=0;i<pickedObjects.length;i++){
+            if(!Cesium.defined(pickedBuildingObj)){
+                if(buildingIds.indexOf(pickedObjects[i].id)>=0){
+                    pickedBuildingObj=pickedObjects[i];
+                }
+            }
+            if(!Cesium.defined(pickedFloorObj)){
+                if(floorIds.indexOf(pickedObjects[i].id)>=0){
+                    pickedFloorObj=pickedObjects[i];
+                }
+            }
+            if(!Cesium.defined(pickedHouseObj)){
+                if(houseIds.indexOf(pickedObjects[i].id)>=0){
+                    pickedHouseObj=pickedObjects[i];
+                }
+            }
+        }
+
+        return [pickedBuildingObj,pickedFloorObj,pickedHouseObj];
+    }
+
+    var currentBuildingId=undefined;
+    var currentBuildingAttributes=undefined;
+
+    var currentFloorId=undefined;
+    var currentFloorAttributes=undefined;
+
+    var currentHouseId=undefined;
+    var currentHouseAttributes=undefined;
+
+    var selectBuildingId=undefined;
+    var selectBuildingAttributes=undefined;
+
+    var selectBuildingId=undefined;
+    var selectBuildingAttributes=undefined;
+
+    var selectFloorId=undefined;
+    var selectFloorAttributes=undefined;
+
+    var selectHouseId=undefined;
+    var selectHouseAttributes=undefined;
+
+    function getAttributesColor(rgba) {
+        var bg = rgba.match(/^rgba\((\d+),\s*(\d+),\s*(\d+),\s*(0(\.\d{1,4})?|1(\.0{1,4})?)\)$/);
+
+        return [bg[1],bg[2],bg[3],bg[4]*255];
+    }
+
+    function unHighlightHouse() {
+        if(!Cesium.defined(currentHouseId)){
+            return;
+        }
+        var houstData=getHouseData(datas,currentHouseId);
+
+        if(Cesium.defined(currentHouseAttributes)){
+            currentHouseAttributes.color=getAttributesColor(houstData.color);
+        }
+        currentHouseId = undefined;
+        currentHouseAttributes=undefined;
+
+        setDescription(currentHouseId);
+    }
+    function highlightHouse(pickedObj) {
+        unHighlightHouse();
+
+        if(!Cesium.defined(pickedObj)){
+            return;
+        }
+
+        var id=pickedObj.id;
+        if(!Cesium.defined(id)){
+            return;
+        }
+
+        viewer.container.style.cursor='pointer';
+
+        var oHouseData=getHouseData(datas,currentHouseId);
+        var houseData=getHouseData(datas,pickedObj.id);
+
+        if (Cesium.defined(pickedObj.primitive)) {
+            if(Cesium.defined(currentHouseId)){
+                if (pickedObj.id !== currentHouseId) {
+                    currentHouseAttributes.color=getAttributesColor(oHouseData.color);//还原原来的颜色
+                    currentHouseId=pickedObj.id;
+                    currentHouseAttributes=pickedObj.primitive.getGeometryInstanceAttributes(currentHouseId);
+                    currentHouseAttributes.color=getAttributesColor(houseData.hColor);
+                }
+            }else {
+                currentHouseId=pickedObj.id;
+                currentHouseAttributes=pickedObj.primitive.getGeometryInstanceAttributes(currentHouseId);
+                currentHouseAttributes.color=getAttributesColor(houseData.hColor);
+            }
+        }
+
+        setDescription(currentHouseId);
+    }
+
+    function unHighlightBuilding() {
+        if(!Cesium.defined(currentBuildingId)){
+            return;
+        }
+        var buildingData=getBuildingData(datas,currentBuildingId);
+
+        if(Cesium.defined(currentBuildingAttributes)){
+            currentBuildingAttributes.color=getAttributesColor(buildingData.color);
+        }
+        currentBuildingId = undefined;
+        currentBuildingAttributes=undefined;
+
+        setDescription(currentBuildingId);
+    }
+    function highlightBuilding(pickedObj) {
+        unHighlightBuilding();
+
+        if(!Cesium.defined(pickedObj)){
+            return;
+        }
+
+        var id=pickedObj.id;
+        if(!Cesium.defined(id)){
+            return;
+        }
+
+        viewer.container.style.cursor='pointer';
+
+        var oBuildingData=getBuildingData(datas,currentBuildingId);
+        var buildingData=getBuildingData(datas,pickedObj.id);
+
+        if (Cesium.defined(pickedObj.primitive)) {
+            if(Cesium.defined(currentBuildingId)){
+                if (pickedObj.id !== currentBuildingId) {
+                    currentBuildingAttributes.color=getAttributesColor(oBuildingData.color);//还原原来的颜色
+                    currentBuildingId=pickedObj.id;
+                    currentBuildingAttributes=pickedObj.primitive.getGeometryInstanceAttributes(currentBuildingId);
+                    currentBuildingAttributes.color=getAttributesColor(buildingData.hColor);
+                }
+            }else {
+                currentBuildingId=pickedObj.id;
+                currentBuildingAttributes=pickedObj.primitive.getGeometryInstanceAttributes(currentBuildingId);
+                currentBuildingAttributes.color=getAttributesColor(buildingData.hColor);
+            }
+        }
+
+        setDescription(currentBuildingId);
+    }
+
+    function unHighlightFloor() {
+        if(!Cesium.defined(currentFloorId)){
+            return;
+        }
+        var floorData=getFloorData(datas,currentFloorId);
+
+        if(Cesium.defined(currentFloorAttributes)){
+            currentFloorAttributes.color=getAttributesColor(floorData.color);
+        }
+        currentFloorId = undefined;
+        currentFloorAttributes=undefined;
+
+        setDescription(currentFloorId);
+    }
+    function highlightFloor(pickedObj) {
+        unHighlightFloor();
+
+        if(!Cesium.defined(pickedObj)){
+            return;
+        }
+
+        var id=pickedObj.id;
+        if(!Cesium.defined(id)){
+            return;
+        }
+
+        viewer.container.style.cursor='pointer';
+
+        var oFloorData=getFloorData(datas,currentFloorId);
+        var floorData=getFloorData(datas,pickedObj.id);
+
+        if (Cesium.defined(pickedObj.primitive)) {
+            if(Cesium.defined(currentFloorId)){
+                if (pickedObj.id !== currentFloorId) {
+                    currentFloorAttributes.color=getAttributesColor(oFloorData.color);//还原原来的颜色
+                    currentFloorId=pickedObj.id;
+                    currentFloorAttributes=pickedObj.primitive.getGeometryInstanceAttributes(currentFloorId);
+                    currentFloorAttributes.color=getAttributesColor(floorData.hColor);
+                }
+            }else {
+                currentFloorId=pickedObj.id;
+                currentFloorAttributes=pickedObj.primitive.getGeometryInstanceAttributes(currentFloorId);
+                currentFloorAttributes.color=getAttributesColor(floorData.hColor);
+            }
+        }
+
+        setDescription(currentFloorId);
+    }
+
+    function unSelectHouse() {
+        if(!Cesium.defined(selectHouseId)){
+            return;
+        }
+        var houstData=getHouseData(datas,selectHouseId);
+
+        if(Cesium.defined(selectHouseAttributes)){
+            selectHouseAttributes.color=getAttributesColor(houstData.color);
+        }
+        selectHouseId = undefined;
+        selectHouseAttributes=undefined;
+
+        setDescription(selectHouseId);
+    }
+    function selectHouse(pickedObj) {
+        unSelectHouse();
+
+        if(!Cesium.defined(pickedObj)){
+            return;
+        }
+
+        var id=pickedObj.id;
+        if(!Cesium.defined(id)){
+            return;
+        }
+
+        var oHouseData=getHouseData(datas,selectHouseId);
+        var houseData=getHouseData(datas,pickedObj.id);
+
+        if (Cesium.defined(pickedObj.primitive)) {
+            if(Cesium.defined(selectHouseId)){
+                if (pickedObj.id !== selectHouseId) {
+                    selectHouseAttributes.color=getAttributesColor(oHouseData.color);//还原原来的颜色
+                    selectHouseId=pickedObj.id;
+                    selectHouseAttributes=pickedObj.primitive.getGeometryInstanceAttributes(selectHouseId);
+                    selectHouseAttributes.color=getAttributesColor(houseData.hColor);
+                }
+            }else {
+                selectHouseId=pickedObj.id;
+                selectHouseAttributes=pickedObj.primitive.getGeometryInstanceAttributes(selectHouseId);
+                selectHouseAttributes.color=getAttributesColor(houseData.hColor);
+            }
+        }
+
+        setDescription(selectHouseId);
+    }
+
+    function unSelectBuilding() {
+        if(!Cesium.defined(selectBuildingId)){
+            return;
+        }
+        var buildingData=getBuildingData(datas,selectBuildingId);
+
+        if(Cesium.defined(selectBuildingAttributes)){
+            selectBuildingAttributes.color=getAttributesColor(buildingData.color);
+        }
+        selectBuildingId = undefined;
+        selectBuildingAttributes=undefined;
+
+        setDescription(selectBuildingId);
+    }
+    function selectBuilding(pickedObj) {
+        unSelectBuilding();
+
+        if(!Cesium.defined(pickedObj)){
+            return;
+        }
+
+        var id=pickedObj.id;
+        if(!Cesium.defined(id)){
+            return;
+        }
+
+        var oBuildingData=getBuildingData(datas,selectBuildingId);
+        var buildingData=getBuildingData(datas,pickedObj.id);
+
+        if (Cesium.defined(pickedObj.primitive)) {
+            if(Cesium.defined(selectBuildingId)){
+                if (pickedObj.id !== selectBuildingId) {
+                    selectBuildingAttributes.color=getAttributesColor(oBuildingData.color);//还原原来的颜色
+                    selectBuildingId=pickedObj.id;
+                    selectBuildingAttributes=pickedObj.primitive.getGeometryInstanceAttributes(selectBuildingId);
+                    selectBuildingAttributes.color=getAttributesColor(buildingData.hColor);
+                }
+            }else {
+                selectBuildingId=pickedObj.id;
+                selectBuildingAttributes=pickedObj.primitive.getGeometryInstanceAttributes(selectBuildingId);
+                selectBuildingAttributes.color=getAttributesColor(buildingData.hColor);
+            }
+        }
+
+        setDescription(selectBuildingId);
+    }
+
+    function unSelectFloor() {
+        if(!Cesium.defined(selectFloorId)){
+            return;
+        }
+        var floorData=getFloorData(datas,selectFloorId);
+
+        if(Cesium.defined(selectFloorAttributes)){
+            selectFloorAttributes.color=getAttributesColor(floorData.color);
+        }
+        selectFloorId = undefined;
+        selectFloorAttributes=undefined;
+
+        setDescription(selectFloorId);
+    }
+    function selectFloor(pickedObj) {
+        unSelectFloor();
+
+        if(!Cesium.defined(pickedObj)){
+            return;
+        }
+
+        var id=pickedObj.id;
+        if(!Cesium.defined(id)){
+            return;
+        }
+
+        var oFloorData=getFloorData(datas,selectFloorId);
+        var floorData=getFloorData(datas,pickedObj.id);
+
+        if (Cesium.defined(pickedObj.primitive)) {
+            if(Cesium.defined(selectFloorId)){
+                if (pickedObj.id !== selectFloorId) {
+                    selectFloorAttributes.color=getAttributesColor(oFloorData.color);//还原原来的颜色
+                    selectFloorId=pickedObj.id;
+                    selectFloorAttributes=pickedObj.primitive.getGeometryInstanceAttributes(selectFloorId);
+                    selectFloorAttributes.color=getAttributesColor(floorData.hColor);
+                }
+            }else {
+                selectFloorId=pickedObj.id;
+                selectFloorAttributes=pickedObj.primitive.getGeometryInstanceAttributes(selectFloorId);
+                selectFloorAttributes.color=getAttributesColor(floorData.hColor);
+            }
+        }
+
+        setDescription(selectFloorId);
+    }
+
+    var pickedObjects;
+    var pickedObj;
+
+    var pickedBuildingObj,pickedFloorObj,pickedHouseObj;
+
+    var handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+    //鼠标移动事件
+    handler.setInputAction(function(movement) {
+        pickedObjects = getPickedObj(movement.endPosition);
+        pickedBuildingObj=pickedObjects[0];
+        pickedFloorObj=pickedObjects[1];
+        pickedHouseObj=pickedObjects[2];
+
+        if(!Cesium.defined(pickedBuildingObj)&&!Cesium.defined(pickedFloorObj)&&!Cesium.defined(pickedHouseObj)){
+            viewer.container.style.cursor='default';
+
+            if(Cesium.defined(selectBuildingId)||Cesium.defined(selectFloorId)||Cesium.defined(selectHouseId)) {//选中了对象
+                if(Cesium.defined(selectFloorId)&&!Cesium.defined(selectHouseId)){
+                    unHighlightHouse();
+                }
+            }else {
+                unHighlightBuilding();
+                unHighlightFloor();
+                unHighlightHouse();
+
+                pickedObj=undefined;
+            }
+
+            return;
+        }
+
+        viewer.container.style.cursor='pointer';
+
+        if(Cesium.defined(selectBuildingId)||Cesium.defined(selectFloorId)||Cesium.defined(selectHouseId)){//选中了对象
+            pickedObj=undefined;
+            if(Cesium.defined(selectFloorId)&&!Cesium.defined(selectHouseId)){
+                unHighlightHouse();
+                if(Cesium.defined(pickedHouseObj)){
+                    pickedObj=pickedHouseObj;
+                    highlightHouse(pickedObj);
+                }
+            }
+        }else {
+            if(Cesium.defined(pickedFloorObj)){
+                pickedObj=pickedFloorObj;
+                unHighlightBuilding();
+                unHighlightHouse();
+                highlightFloor(pickedObj);
+            }else if(Cesium.defined(pickedBuildingObj)){
+                pickedObj=pickedBuildingObj;
+                unHighlightFloor();
+                unHighlightHouse();
+                highlightBuilding(pickedObj);
+            }else if(Cesium.defined(pickedHouseObj)){
+                pickedObj=pickedHouseObj;
+                unHighlightBuilding();
+                unHighlightFloor();
+                highlightHouse(pickedObj);
+            }else {
+                unHighlightBuilding();
+                unHighlightFloor();
+                unHighlightHouse();
+            }
+        }
+
+        setDescription(pickedObj);
+
+    }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
+
+    //鼠标单击事件
+    handler.setInputAction(function(movement) {
+        unHighlightHouse();
+
+        if(!Cesium.defined(pickedBuildingObj)&&!Cesium.defined(pickedFloorObj)&&!Cesium.defined(pickedHouseObj)){
+            unSelectBuilding();
+            unSelectFloor();
+            unSelectHouse();
+
+            housePrimitives.removeAll();
+            labels.removeAll();
+
+            setDescription();
+
+            return;
+        }
+
+        if(Cesium.defined(selectBuildingId)) {//选中了对象
+            if(Cesium.defined(pickedFloorObj)){
+                pickedObj=pickedFloorObj;
+                unSelectBuilding();
+                unSelectHouse();
+
+                selectFloor(pickedObj);
+                housePrimitives.removeAll();
+                labels.removeAll();
+                var floorData=getFloorData(datas,selectFloorId);
+                if(Cesium.defined(floorData)){
+                    createHouses(floorData.houses,housePrimitives);
+                    createHouseLabels(floorData.houses,labels);
+                }
+            }else if(Cesium.defined(pickedBuildingObj)){
+                pickedObj=pickedBuildingObj;
+                unSelectFloor();
+                unSelectHouse();
+                selectBuilding(pickedObj);
+            }else {
+                unSelectBuilding();
+                unSelectFloor();
+                unSelectHouse();
+
+                pickedObj=undefined;
+            }
+        }else if(Cesium.defined(selectFloorId)){
+            if(Cesium.defined(pickedHouseObj)){
+                pickedObj=pickedHouseObj;
+                unSelectBuilding();
+                selectHouse(pickedObj)
+            }else if(Cesium.defined(pickedFloorObj)){
+                pickedObj=pickedFloorObj;
+                unSelectBuilding();
+                unSelectHouse();
+
+                selectFloor(pickedObj);
+                housePrimitives.removeAll();
+                labels.removeAll();
+                var floorData=getFloorData(datas,selectFloorId);
+                if(Cesium.defined(floorData)){
+                    createHouses(floorData.houses,housePrimitives);
+                    createHouseLabels(floorData.houses,labels);
+                }
+            }else  if(Cesium.defined(pickedBuildingObj)){
+                pickedObj=pickedBuildingObj;
+                unSelectFloor();
+                unSelectHouse();
+                selectFloor(pickedObj);
+
+                housePrimitives.removeAll();
+                labels.removeAll();
+                var floorData=getFloorData(datas,selectFloorId);
+                if(Cesium.defined(floorData)){
+                    createHouses(floorData.houses,housePrimitives);
+                    createHouseLabels(floorData.houses,labels);
+                }
+            }else {
+                unSelectBuilding();
+                unSelectFloor();
+                unSelectHouse();
+
+                pickedObj=undefined;
+            }
+        }else if(Cesium.defined(selectHouseId)){
+            if(Cesium.defined(pickedHouseObj)){
+                pickedObj=pickedHouseObj;
+                unSelectBuilding();
+                selectHouse(pickedObj)
+            }else if(Cesium.defined(pickedFloorObj)){
+                pickedObj=pickedFloorObj;
+                unSelectBuilding();
+                unSelectHouse();
+                selectFloor(pickedObj);
+
+                housePrimitives.removeAll();
+                labels.removeAll();
+                var floorData=getFloorData(datas,selectFloorId);
+                if(Cesium.defined(floorData)){
+                    createHouses(floorData.houses,housePrimitives);
+                    createHouseLabels(floorData.houses,labels);
+                }
+            }else  if(Cesium.defined(pickedBuildingObj)){
+                pickedObj=pickedBuildingObj;
+                unSelectFloor();
+                unSelectHouse();
+                selectFloor(pickedObj);
+            }else {
+                unSelectBuilding();
+                unSelectFloor();
+                unSelectHouse();
+
+                pickedObj=undefined;
+            }
+        }else {
+            if(Cesium.defined(pickedFloorObj)){
+                pickedObj=pickedFloorObj;
+                unSelectBuilding();
+                unSelectHouse();
+
+                selectFloor(pickedObj);
+                housePrimitives.removeAll();
+                labels.removeAll();
+                var floorData=getFloorData(datas,selectFloorId);
+                if(Cesium.defined(floorData)){
+                    createHouses(floorData.houses,housePrimitives);
+                    createHouseLabels(floorData.houses,labels);
+                }
+            }else if(Cesium.defined(pickedBuildingObj)){
+                pickedObj=pickedBuildingObj;
+                unSelectFloor();
+                unSelectHouse();
+                selectBuilding(pickedObj);
+            }else {
+                unSelectBuilding();
+                unSelectFloor();
+                unSelectHouse();
+
+                pickedObj=undefined;
+            }
+        }
+
+        setDescription(pickedObj);
+
+    }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
+
+</script>
+</html>
